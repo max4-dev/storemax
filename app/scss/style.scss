@@ -4,7 +4,71 @@
 @import 'libs';
 @import 'global';
 
+.header{
+  border-bottom: 1px solid #ccc;
+  &__inner{
+    padding: 22px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
 
+.search{
+  display: flex;
+  align-items: center;
+  width: auto;
+  &__input{
+    height: 52px;
+    padding: 14px 23px 14px 23px;
+    border-radius: 10px;
+    border: 2px solid #005BFF;
+    width: 596px;
+    &::placeholder{
+      font-size: 18px;
+      line-height: 25px;
+      font-weight: 400;
+      color: #707F8D;
+    }
+  }
+  &__btn{
+    width: 80px;
+    height: 52px;
+    background-color: #005BFF;
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -10px;
+    border: none;
+  }
+}
+
+.sign{
+  display: flex;
+  align-items: center;
+  &__btn + .sign__btn {
+    margin-left: 16px;
+  }
+  &__btn{
+    padding: 13px 34px;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 26px;
+    background-color: #fff;
+  }
+  .signin{
+    border-radius: 10px;
+    color: #005BFF;
+    border: 2px solid #005BFF;
+  }
+  .signup{
+    color: #fff;
+    background-color: #005BFF;
+    border-radius: 10px;
+    border: 2px solid #005BFF;
+  }
+}
 
 
 @import 'media';
