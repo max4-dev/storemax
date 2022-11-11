@@ -70,5 +70,127 @@
   }
 }
 
+.product{
+  &__inner{
+    padding: 70px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  &-content{
+    max-width: 950px;
+    width: 100%;
+  }
+  &-content__filter{
+    margin-bottom: 57px;
+  }
+  &-content__filter-btn{
+    width: 217px;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 2px solid #B3BCC5;
+    display: flex;
+    justify-content: start;
+    padding: 7px 23px 7px 18px;
+    position: relative;
+    &::after{
+      content: "";
+      position: absolute;
+      top: 14px;
+      right: 23px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 5.5px 10px 5.5px;
+      border-color: transparent transparent #000000 transparent;
+    }
+  }
+  &-content__items{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 101px;
+  }
+  &-content__img{
+    background-repeat: 10px;
+    object-fit: cover;
+    margin-bottom: 24px;
+    width: 250px;
+    height: 250px;
+  }
+  &-content__title{
+    margin-bottom: 8px;
+  }
+  &-content__text{
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 5px;
+  }
+  &-content__badges{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &-content__price{
+    padding: 3px 12px;
+    color: #fff;
+    background: linear-gradient(90deg, #EE2C65 5.88%, #FAAE1C 100%);
+    border-radius: 10px;
+    margin-right: 5px;
+  }
+  &-content__link{
+    padding: 4px 6px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #005BFF;
+    height: 31px;
+  }
+}
+.aside{
+  width: 330px;
+  margin-right: 48px;
+  &__item{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 13px 9px 37px;
+    border-radius: 10px;
+    transition: all .2s;
+    cursor: pointer;
+    img{
+      opacity: 0;
+      transition: all .1s;
+    }
+  }
+  &__item:hover{
+    background-color: #F5F7FA;
+    img{
+      opacity: 1;
+    }
+    .aside__link{
+      color: #005BFF;
+    }
+  }
+  &__item--active{
+    background-color: #F5F7FA;
+    img{
+      opacity: 1;
+    }
+    .aside__link{
+      color: #005BFF;
+    }
+  }
+  &__link{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: #000;
+    transition: all .3s;
+  }
+}
+
 
 @import 'media';
