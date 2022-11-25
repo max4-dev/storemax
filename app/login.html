@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storemax</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.min.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <a class="logo" href="#">
+          <img class="logo__img" src="images/logo.svg" alt="">
+        </a>
+        <label class="search">
+          <input class="search__input" type="text" placeholder="Поиск">
+          <button class="search__btn" type="submit">
+            <img src="images/icons/search.svg" alt="">
+          </button>
+        </label>
+        <div class="sign">
+          <a class="signin sign__btn" href="#">Войти</a>
+          <a class="signup sign__btn" href="#">Регистрация</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="main">
+    <section class="login">
+      <h2 class="title login__title">Вход</h2>
+      <form class="login__form" action="#">
+        <label class="login__label">
+          Имя
+          <input class="login__input" type="text">
+        </label>
+        <label class="login__label login__password">
+          Пароль
+          <input class="login__input login__password-input" type="password">
+          <button class="login__password-btn"><img src="images/icons/eye.svg" alt=""></button>
+        </label>
+        <label class="login__checkbox-label">
+          <input class="login__checkbox" type="checkbox">
+          <span></span>
+          <p class="login__text">Запомнить меня</p>
+        </label>
+        <button class="login__btn btn" type="submit">Войти</button>
+      </form>
+    </section>
+  </main>
+  <footer class="footer">
+    <h2 class="footer__title">
+      <a href="#">HOME</a>
+    </h2>
+  </footer>
+
+  <script src="js/main.min.js"></script>
+</body>
+
+</html>

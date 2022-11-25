@@ -6,6 +6,7 @@
 
 .header{
   border-bottom: 1px solid #ccc;
+  background-color: #fff;
   &__inner{
     padding: 22px 0;
     display: flex;
@@ -19,11 +20,13 @@
   align-items: center;
   width: auto;
   &__input{
-    height: 52px;
+    height: 40px;
     padding: 14px 23px 14px 23px;
     border-radius: 10px;
     border: 2px solid #005BFF;
     width: 596px;
+    z-index: 10;
+    margin-right: -8px;
     &::placeholder{
       font-size: 18px;
       line-height: 25px;
@@ -33,13 +36,14 @@
   }
   &__btn{
     width: 80px;
-    height: 52px;
+    padding-left: 8px;
+    height: 40px;
     background-color: #005BFF;
     border-radius: 0 10px 10px 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: -10px;
+    // margin-left: -10px;
     border: none;
   }
 }
@@ -51,7 +55,7 @@
     margin-left: 16px;
   }
   &__btn{
-    padding: 13px 34px;
+    padding: 5px 25px;
     font-weight: 700;
     font-size: 19px;
     line-height: 26px;
@@ -70,9 +74,20 @@
   }
 }
 
+.sales{
+  padding-top: 100px;
+  &__title{
+    margin-bottom: 53px;
+  }
+}
+
 .product{
+  padding-top: 100px;
+  &__title{
+    margin-bottom: 53px;
+  }
   &__inner{
-    padding: 70px 0;
+    padding: 0 0 70px 0;
     display: flex;
     justify-content: space-between;
   }
@@ -107,7 +122,8 @@
   &-content__items{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 101px;
+    grid-column-gap: 101px;
+    grid-row-gap: 50px;
   }
   &-content__img{
     background-repeat: 10px;
@@ -115,6 +131,7 @@
     margin-bottom: 24px;
     width: 250px;
     height: 250px;
+    border-radius: 10px;
   }
   &-content__title{
     margin-bottom: 8px;
@@ -151,6 +168,11 @@
 .aside{
   width: 330px;
   margin-right: 48px;
+  position: relative;
+  &__list{
+    position: sticky;
+    top: 50px;
+  }
   &__item{
     width: 100%;
     display: flex;
@@ -189,6 +211,97 @@
     line-height: 25px;
     color: #000;
     transition: all .3s;
+  }
+}
+
+.login{
+  max-width: 660px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 60px;
+  padding: 40px 73px;
+  box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.25);
+  border-radius: 45px;  
+  background-color: #fff;
+  &__title{
+    margin-bottom: 31px;
+  }
+  &__label{
+    display: block;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+  }
+  &__label + .login__label{
+    margin-top: 15px;
+  }
+  &__checkbox-label{
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+    span{
+      width: 18px;
+      height: 18px;
+      border: 2px solid #005BFF;
+      border-radius: 2px;
+    }
+  }
+  &__input{
+    display: block;
+    width: 100%;
+    height: 38px;
+    border: 2px solid #005BFF;
+    border-radius: 10px;
+    padding: 5px 10px;
+  }
+  &__checkbox{
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+  }
+  &__checkbox:checked + span{
+    background-color: #005BFF;
+    background-image: url('../images/icons/check.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &__text{
+    max-width: 330px;
+    padding-left: 15px;
+  }
+  &__password{
+    position: relative;
+  }
+  &__password-btn{
+    position: absolute;
+    right: 22px;
+    bottom: 10px;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+  &__password-input{
+    padding-right: 60px;
+  }
+}
+
+.footer{
+  background-color: #212224;
+  padding: 33px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  &__title{
+    color: #fff;
+    font-weight: 800;
+    font-size: 64px;
+    line-height: 87px;
   }
 }
 
