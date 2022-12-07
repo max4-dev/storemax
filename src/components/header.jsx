@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <header className="header">
       <div className="container">
         <div className="header__inner">
-          <a className="logo" href="#">
+          <Link className="logo" to="/">
             <img className="logo__img" src="images/logo.svg" alt="" />
-          </a>
+          </Link>
           <label className="search">
             <input className="search__input" type="text" placeholder="Поиск" />
             <button className="search__btn" type="submit">
