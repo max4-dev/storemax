@@ -22,6 +22,10 @@ const Header = () => {
             <a className="signup sign__btn" href="#">
               Регистрация
             </a>
+            <Link className="sign__btn cart-btn" to="/cart">
+              <span>3</span>
+              <img src="images/icons/cart.svg" alt="" />
+            </Link>
           </div>
         </div>
       </div>

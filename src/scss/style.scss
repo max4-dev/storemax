@@ -4,7 +4,7 @@
 @import './global';
 
 .header{
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #F4F4F4;
   background-color: #fff;
   &__inner{
     padding: 12px 0;
@@ -57,23 +57,11 @@
   &__btn + .sign__btn {
     margin-left: 16px;
   }
-  &__btn{
-    padding: 5px 25px;
-    font-weight: 700;
-    font-size: 19px;
-    line-height: 26px;
-    background-color: #fff;
-  }
   .signin{
-    border-radius: 10px;
-    color: #005BFF;
-    border: 2px solid #005BFF;
+    @extend %btn-accent;
   }
   .signup{
-    color: #fff;
-    background-color: #005BFF;
-    border-radius: 10px;
-    border: 2px solid #005BFF;
+    @extend %btn;
   }
 }
 
@@ -320,13 +308,188 @@
   }
 }
 
+.cart-btn{
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #005BFF;
+  padding: 0;
+  position: relative;
+  span{
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 50%;
+    color: #005BFF;
+    font-size: 13px;
+  }
+}
+
+.cart{
+  padding: 100px 0;
+  &__top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 37px;
+  }
+  &__title{
+    padding-left: 36px;
+    position: relative;
+  }
+  &__title::after{
+    content: "";
+    position: absolute;
+    width: 29px;
+    height: 29px;
+    background-image: url('../../public/images/icons/cart-title.svg');
+    left: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  &__title::before{
+    left: 36px;
+  }
+  &__clear{
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #B6B6B6;
+    padding-left: 27px;
+    position: relative;
+    background-color: transparent;
+    border: none;
+  }
+  &__clear::before{
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-image: url('../../public/images/icons/trash.svg');
+    left: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  &__item{
+    border-top: 1px solid #F4F4F4;
+    padding: 24px 0 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__img{
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+  }
+  &__name{
+    margin-left: 14px;
+    margin-right: auto;
+    max-width: 280px;
+  }
+  &__name-title{
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 25px;
+  }
+  &__name-text{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: 0.01em;
+    color: #8D8D8D;
+  }
+  &-counter{
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+  }
+  &-counter__btn{
+    background-color: transparent;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    border: 2px solid #005BFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  &-counter__num{
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 30px;
+    letter-spacing: 0.01em;
+    padding: 0 12px;
+  }
+  &__price{
+    margin: 0 auto;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 30px;
+    letter-spacing: 0.01em;
+  }
+  &__delete{
+    margin-left: auto;
+    background-color: transparent;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    border: 2px solid #D7D7D7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  &-bottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 44px;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 30px;
+    letter-spacing: 0.01em;
+  }
+  &-bottom__counter{
+    span{
+      font-weight: 700;
+    }
+  }
+  &-bottom__price{
+    span{
+      font-weight: 700;
+      color: #005BFF;
+    }
+  }
+  &-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &-buttons__back{
+    @extend %btn;
+  }
+  &-buttons__pay{
+    @extend %btn-accent;
+  }
+}
+
 .footer{
   background-color: #212224;
   padding: 33px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
   &__title{
     color: #fff;
     font-weight: 800;

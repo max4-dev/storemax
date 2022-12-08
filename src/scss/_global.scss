@@ -15,9 +15,13 @@ body{
 }
 
 .container{
-  width: 1330px;
+  max-width: 1330px;
   padding: 0 10px;
   margin: 0 auto;
+}
+
+.container-s{
+  max-width: 820px;
 }
 
 .title{

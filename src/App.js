@@ -7,6 +7,7 @@ import NotFound from './pages/notFound';
 import './scss/style.scss';
 
 import { Routes, Route } from 'react-router-dom';
+import Cart from './pages/cart';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <main className="main">
