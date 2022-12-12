@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleToggleMenu = () => {
+    setOpen((prevState) => !prevState);
+  };
+
   return (
     <header className="header">
       <div className="container">
@@ -11,11 +17,13 @@ const Header = () => {
           </Link>
           <label className="search">
             <input className="search__input" type="text" placeholder="Поиск" />
-            <button className="search__btn" type="submit">
-              <img src="images/icons/search.svg" alt="" />
-            </button>
+            <Link to="/">
+              <button className="search__btn" type="submit">
+                <img src="images/icons/search.svg" alt="" />
+              </button>
+            </Link>
           </label>
-          <div className="sign">
+          <div className={'sign' + (open ? ' sign--active' : '')}>
             <a className="signin sign__btn" href="#">
               Войти
             </a>
@@ -27,6 +35,13 @@ const Header = () => {
               <img src="images/icons/cart.svg" alt="" />
             </Link>
           </div>
+          <button
+            className={'menu-btn' + (open ? ' menu-btn--active' : '')}
+            onClick={handleToggleMenu}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </div>
     </header>

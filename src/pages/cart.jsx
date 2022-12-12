@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
   return (
@@ -11,7 +12,7 @@ const Cart = () => {
           </div>
           <div className="cart__items">
             <div className="cart__item">
-              <img className="cart__img" src="images/product/1.jpg" alt="" />
+              <img className="cart__img" src="images/product/clothes/1.jpg" alt="" />
               <div className="cart__name">
                 <a className="cart__name-link" href="#">
                   <h4 className="cart__name-title">Рюкзак adidas Classic Fabric Backpack</h4>
@@ -33,7 +34,7 @@ const Cart = () => {
               </button>
             </div>
             <div className="cart__item">
-              <img className="cart__img" src="images/product/1.jpg" alt="" />
+              <img className="cart__img" src="images/product/clothes/1.jpg" alt="" />
               <div className="cart__name">
                 <a className="cart__name-link" href="#">
                   <h4 className="cart__name-title">Рюкзак adidas Classic Fabric Backpack</h4>
@@ -55,7 +56,7 @@ const Cart = () => {
               </button>
             </div>
             <div className="cart__item">
-              <img className="cart__img" src="images/product/1.jpg" alt="" />
+              <img className="cart__img" src="images/product/clothes/1.jpg" alt="" />
               <div className="cart__name">
                 <a className="cart__name-link" href="#">
                   <h4 className="cart__name-title">Рюкзак adidas Classic Fabric Backpack</h4>
@@ -86,7 +87,9 @@ const Cart = () => {
             </p>
           </div>
           <div className="cart-buttons">
-            <button className="cart-buttons__back">Вернуться назад</button>
+            <Link to="/" className="cart-buttons__back">
+              Вернуться назад
+            </Link>
             <button className="cart-buttons__pay">Оплатить</button>
           </div>
         </div>

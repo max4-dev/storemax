@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Aside = () => {
-  const [activeType, setActiveType] = useState(0);
-
+const Aside = ({ value, onChangeType }) => {
   const typeList = [
+    { name: 'Всё' },
     { name: 'Одежда' },
     { name: 'Техника' },
-    { name: 'Спорт и отдых' },
-    { name: 'Детские товары' },
     { name: 'Продукты питания' },
-    { name: 'Красота и здоровье' },
-    { name: 'Цифровые товары' },
+    // { name: 'Спорт и отдых' },
+    // { name: 'Детские товары' },
+    // { name: 'Красота и здоровье' },
+    // { name: 'Цифровые товары' },
   ];
 
   return (
@@ -18,8 +17,8 @@ const Aside = () => {
       <ul className="aside__list">
         {typeList.map((type, index) => (
           <li
-            className={activeType === index ? 'aside__item aside__item--active' : 'aside__item'}
-            onClick={() => setActiveType(index)}
+            className={value === index ? 'aside__item aside__item--active' : 'aside__item'}
+            onClick={() => onChangeType(index)}
             key={index}>
             {type.name}
             <img src="images/icons/arrow.svg" alt="" />

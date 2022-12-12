@@ -1,33 +1,36 @@
 import React, { useState } from 'react';
 
-const Filter = () => {
+const Filter = ({ value, onChangeFilter }) => {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(0);
 
-  const sortList = ['Цена', 'Название', 'Популярность'];
-  const sortName = sortList[selected];
+  const sortList = [
+    { name: 'Цена', filterProps: 'price' },
+    { name: 'Название', filterProps: 'title' },
+    { name: 'Популярность', filterProps: 'rating' },
+  ];
 
   const handleChangeSelect = (index) => {
-    setSelected(index);
+    onChangeFilter(index);
     setOpen(!open);
   };
 
   return (
     <div className="product-content__filter">
       <button className="product-content__filter-btn">
-        <span onClick={() => setOpen(!open)}>{sortName}</span>
+        <span onClick={() => setOpen(!open)}>{value.name}</span>
       </button>
       {open && (
         <div className="popup-filter">
           <ul className="popup-filter__list">
-            {sortList.map((sort, index) => (
+            {sortList.map((sort) => (
               <li
                 className={
-                  'popup-filter__item' + (selected === index ? ' popup-filter__item--active' : '')
+                  'popup-filter__item' +
+                  (value.filterProps === sort.filterProps ? ' popup-filter__item--active' : '')
                 }
-                onClick={() => handleChangeSelect(index)}
-                key={sort}>
-                {sort}
+                onClick={() => handleChangeSelect(sort)}
+                key={sort.filterProps}>
+                {sort.name}
               </li>
             ))}
           </ul>

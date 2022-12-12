@@ -1,0 +1,122 @@
+@media (max-width: 1300px) {
+  .search{
+    &__input{
+      width: 400px;
+    }
+  }
+  .menu-btn{
+    width: 50px;
+    height: 50px;
+    background-color: #005BFF;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    position: relative;
+    padding: 10px;
+    transition: all .3s;
+    transform: rotate(0);
+    span{
+      width: 30px;
+      height: 3px;
+      background-color: #fff;
+      border-radius: 10px;
+    }
+  }
+  .menu-btn--active{
+    transform: rotate(90deg);
+  }
+  .sign{
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    height: 104px;
+    left: 0;
+    transform: translateX(-100%);
+    right: 0;
+    top: 104px;
+    z-index: 10;
+    justify-content: center;
+    transition: all .5s;
+    border-bottom: 1px solid #F4F4F4;
+  }
+  .sign--active{
+    transform: translateX(0);
+  }
+  .product{
+    &__inner{
+      display: block;
+    }
+    &-content{
+      max-width: 100%;
+    }
+  }
+  .aside{
+    width: 100%;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 990px) {
+  .product{
+    &-content__items{
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .product, .cart{
+    padding-top: 60px;
+  }
+  .product{
+    &-content__items{
+      display: block;
+    }
+    &-content__item-wrapper + .product-content__item-wrapper{
+      margin-top: 30px;
+    }
+  }
+  .search{
+    &__input{
+      width: 205px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .header{
+    &__inner{
+      flex-direction: column;
+      align-items: start;
+    }
+  }
+  .search{
+    width: 100%;
+    padding-top: 15px;
+    order: 1;
+    &__input{
+      width: 100%;
+    }
+  }
+  .menu-btn{
+    margin-left: auto;
+    position: absolute;
+    top: 28px;
+    right: 10px;
+  }
+  .sign{
+    top: 159px;
+  }
+  .sign{
+    flex-direction: column;
+    height: auto;
+    padding: 10px 0;
+    grid-gap: 10px;
+  }
+  .sign__btn + .sign__btn {
+    margin-left: 0;
+  }
+}
