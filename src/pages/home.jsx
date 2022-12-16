@@ -6,19 +6,21 @@ import Skeleton from '../components/product-item/skeleton';
 import Aside from '../components/aside';
 import '../scss/style.scss';
 
-const Home = () => {
+const Home = ({ searchValue, activeType, setActiveType }) => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [activeFilter, setActiveFilter] = useState({ name: 'Цена', filterProps: 'price' });
-  const [activeType, setActiveType] = useState(0);
+  const [activeTitle, setActiveTitle] = useState('Все товары');
+
+  const category = activeType > 0 ? `category=${activeType}` : '';
+  const filter = activeFilter.filterProps;
+  const search = searchValue ? `search=${searchValue}` : '';
 
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      `https://638d373d4190defdb73ffb73.mockapi.io/items?category=${
-        activeType > 0 ? activeType : ''
-      }&sortBy=${activeFilter.filterProps}&order=desc`,
+      `https://638d373d4190defdb73ffb73.mockapi.io/items?${category}&sortBy=${filter}&order=desc&${search}`,
     )
       .then((res) => res.json())
       .then((json) => {
@@ -26,16 +28,21 @@ const Home = () => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [activeFilter, activeType]);
+  }, [activeFilter, activeType, searchValue]);
 
   return (
     <section className="product">
       <div className="container">
         <h2 className="title product__title">
-          Одежда<sup>{items.length} товаров</sup>
+          {activeTitle}
+          <sup>{items.length} товаров</sup>
         </h2>
         <div className="product__inner">
-          <Aside value={activeType} onChangeType={(index) => setActiveType(index)} />
+          <Aside
+            value={activeType}
+            onChangeType={(index) => setActiveType(index)}
+            setActiveTitle={setActiveTitle}
+          />
           <div className="product-content">
             <Filter value={activeFilter} onChangeFilter={(index) => setActiveFilter(index)} />
             <div className="product-content__items">

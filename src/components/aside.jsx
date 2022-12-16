@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Aside = ({ value, onChangeType }) => {
+const Aside = ({ value, onChangeType, setActiveTitle }) => {
   const typeList = [
-    { name: 'Всё' },
+    { name: 'Все товары' },
     { name: 'Одежда' },
     { name: 'Техника' },
     { name: 'Продукты питания' },
@@ -18,7 +18,10 @@ const Aside = ({ value, onChangeType }) => {
         {typeList.map((type, index) => (
           <li
             className={value === index ? 'aside__item aside__item--active' : 'aside__item'}
-            onClick={() => onChangeType(index)}
+            onClick={() => {
+              onChangeType(index);
+              setActiveTitle(type.name);
+            }}
             key={index}>
             {type.name}
             <img src="images/icons/arrow.svg" alt="" />

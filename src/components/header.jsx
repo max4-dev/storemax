@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Search from './search';
 
-const Header = () => {
+const Header = ({ searchValue, setSearchValue, setActiveType }) => {
   const [open, setOpen] = useState(false);
 
   const handleToggleMenu = () => {
@@ -15,14 +16,11 @@ const Header = () => {
           <Link className="logo" to="/">
             <img className="logo__img" src="images/logo.svg" alt="" />
           </Link>
-          <label className="search">
-            <input className="search__input" type="text" placeholder="Поиск" />
-            <Link to="/">
-              <button className="search__btn" type="submit">
-                <img src="images/icons/search.svg" alt="" />
-              </button>
-            </Link>
-          </label>
+          <Search
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+            setActiveType={setActiveType}
+          />
           <div className={'sign' + (open ? ' sign--active' : '')}>
             <a className="signin sign__btn" href="#">
               Войти

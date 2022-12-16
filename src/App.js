@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Footer from './components/footer';
 import Header from './components/header';
 import Home from './pages/home';
@@ -10,17 +10,31 @@ import { Routes, Route } from 'react-router-dom';
 import Cart from './pages/cart';
 
 function App() {
+  const [searchValue, setSearchValue] = useState('');
+  const [activeType, setActiveType] = useState(0);
+
   return (
     <>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <Header
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        setActiveType={setActiveType}
+      />
       <main className="main">
-        {/* <Sales /> */}
-        {/* <Home /> */}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                searchValue={searchValue}
+                activeType={activeType}
+                setActiveType={setActiveType}
+              />
+            }
+          />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
       <Footer />
     </>
