@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Search from './search';
 
-const Header = ({ searchValue, setSearchValue, setActiveType }) => {
+const Header = ({ searchValue, setSearchValue, setActiveType, setActivePage, setActiveTitle }) => {
   const [open, setOpen] = useState(false);
 
   const handleToggleMenu = () => {
@@ -20,6 +20,8 @@ const Header = ({ searchValue, setSearchValue, setActiveType }) => {
             searchValue={searchValue}
             setSearchValue={setSearchValue}
             setActiveType={setActiveType}
+            setActivePage={setActivePage}
+            setActiveTitle={setActiveTitle}
           />
           <div className={'sign' + (open ? ' sign--active' : '')}>
             <a className="signin sign__btn" href="#">

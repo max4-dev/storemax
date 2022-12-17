@@ -12,6 +12,8 @@ import Cart from './pages/cart';
 function App() {
   const [searchValue, setSearchValue] = useState('');
   const [activeType, setActiveType] = useState(0);
+  const [activePage, setActivePage] = useState(1);
+  const [activeTitle, setActiveTitle] = useState('Все товары');
 
   return (
     <>
@@ -19,6 +21,8 @@ function App() {
         searchValue={searchValue}
         setSearchValue={setSearchValue}
         setActiveType={setActiveType}
+        setActivePage={setActivePage}
+        setActiveTitle={setActiveTitle}
       />
       <main className="main">
         <Routes>
@@ -29,6 +33,10 @@ function App() {
                 searchValue={searchValue}
                 activeType={activeType}
                 setActiveType={setActiveType}
+                activePage={activePage}
+                setActivePage={setActivePage}
+                activeTitle={activeTitle}
+                setActiveTitle={setActiveTitle}
               />
             }
           />

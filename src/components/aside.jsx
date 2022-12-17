@@ -24,7 +24,7 @@ const Aside = ({ value, onChangeType, setActiveTitle }) => {
             }}
             key={index}>
             {type.name}
-            <img src="images/icons/arrow.svg" alt="" />
+            <img src="images/icons/arrow-right.svg" alt="" />
           </li>
         ))}
         {/* <li className="aside__item aside__item--active">
