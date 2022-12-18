@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { PageContext, TitleContext, TypeContext } from '../App';
 
-const Aside = ({ value, onChangeType, setActiveTitle }) => {
+const Aside = () => {
   const typeList = [
     { name: 'Все товары' },
     { name: 'Одежда' },
@@ -12,63 +13,26 @@ const Aside = ({ value, onChangeType, setActiveTitle }) => {
     // { name: 'Цифровые товары' },
   ];
 
+  const { activeType, setActiveType } = useContext(TypeContext);
+  const { setActiveTitle } = useContext(TitleContext);
+  const { setActivePage } = useContext(PageContext);
+
   return (
     <aside className="product-aside aside">
       <ul className="aside__list">
         {typeList.map((type, index) => (
           <li
-            className={value === index ? 'aside__item aside__item--active' : 'aside__item'}
+            className={activeType === index ? 'aside__item aside__item--active' : 'aside__item'}
             onClick={() => {
-              onChangeType(index);
+              setActiveType(index);
               setActiveTitle(type.name);
+              setActivePage(1);
             }}
             key={index}>
             {type.name}
             <img src="images/icons/arrow-right.svg" alt="" />
           </li>
         ))}
-        {/* <li className="aside__item aside__item--active">
-          <a className="aside__link" href="#">
-            Одежда
-          </a>
-          <img src="images/icons/arrow.svg" alt="" />
-        </li>
-        <li className="aside__item">
-          <a className="aside__link" href="#">
-            Техника
-          </a>
-          <img src="images/icons/arrow.svg" alt="" />
-        </li>
-        <li className="aside__item">
-          <a className="aside__link" href="#">
-            Спорт и отдых
-          </a>
-          <img src="images/icons/arrow.svg" alt="" />
-        </li>
-        <li className="aside__item">
-          <a className="aside__link" href="#">
-            Детские товары
-          </a>
-          <img src="images/icons/arrow.svg" alt="" />
-        </li>
-        <li className="aside__item">
-          <a className="aside__link" href="#">
-            Продукты питания
-          </a>
-          <img src="images/icons/arrow.svg" alt="" />
-        </li>
-        <li className="aside__item">
-          <a className="aside__link" href="#">
-            Красота и здоровье
-          </a>
-          <img src="images/icons/arrow.svg" alt="" />
-        </li>
-        <li className="aside__item">
-          <a className="aside__link" href="#">
-            Цифровые товары
-          </a>
-          <img src="images/icons/arrow.svg" alt="" />
-        </li> */}
       </ul>
     </aside>
   );

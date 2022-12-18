@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { createContext, useState } from 'react';
 import Footer from './components/footer';
 import Header from './components/header';
 import Home from './pages/home';
@@ -9,6 +9,11 @@ import './scss/style.scss';
 import { Routes, Route } from 'react-router-dom';
 import Cart from './pages/cart';
 
+export const SearchContext = createContext('');
+export const TypeContext = createContext(0);
+export const PageContext = createContext(1);
+export const TitleContext = createContext('Все товары');
+
 function App() {
   const [searchValue, setSearchValue] = useState('');
   const [activeType, setActiveType] = useState(0);
@@ -17,34 +22,23 @@ function App() {
 
   return (
     <>
-      <Header
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-        setActiveType={setActiveType}
-        setActivePage={setActivePage}
-        setActiveTitle={setActiveTitle}
-      />
-      <main className="main">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                searchValue={searchValue}
-                activeType={activeType}
-                setActiveType={setActiveType}
-                activePage={activePage}
-                setActivePage={setActivePage}
-                activeTitle={activeTitle}
-                setActiveTitle={setActiveTitle}
-              />
-            }
-          />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-      <Footer />
+      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+        <TypeContext.Provider value={{ activeType, setActiveType }}>
+          <PageContext.Provider value={{ activePage, setActivePage }}>
+            <TitleContext.Provider value={{ activeTitle, setActiveTitle }}>
+              <Header />
+              <main className="main">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+              <Footer />
+            </TitleContext.Provider>
+          </PageContext.Provider>
+        </TypeContext.Provider>
+      </SearchContext.Provider>
     </>
   );
 }

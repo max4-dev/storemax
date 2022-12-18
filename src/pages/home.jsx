@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import Filter from '../components/filter';
 import ProductItem from '../components/product-Item';
@@ -6,18 +6,16 @@ import Skeleton from '../components/product-Item/skeleton';
 import Aside from '../components/aside';
 import '../scss/style.scss';
 import Pagination from '../components/pagination';
+import { PageContext, SearchContext, TitleContext, TypeContext } from '../App';
 
-const Home = ({
-  searchValue,
-  activeType,
-  setActiveType,
-  activePage,
-  setActivePage,
-  activeTitle,
-  setActiveTitle,
-}) => {
+const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { activeType, setActiveType } = useContext(TypeContext);
+  const { searchValue } = useContext(SearchContext);
+  const { activeTitle } = useContext(TitleContext);
+  const { activePage, setActivePage } = useContext(PageContext);
 
   const [activeFilter, setActiveFilter] = useState({ name: 'Цена', filterProps: 'price' });
 
@@ -52,12 +50,10 @@ const Home = ({
         </h2>
         <div className="product__inner">
           <Aside
-            value={activeType}
             onChangeType={(index) => {
               setActiveType(index);
               setActivePage(1);
             }}
-            setActiveTitle={setActiveTitle}
           />
           <div className="product-content">
             <Filter
@@ -76,7 +72,7 @@ const Home = ({
                   ))
                 : sliceItems.map((product) => <ProductItem {...product} key={product.id} />)}
             </div>
-            {NumberOfPages > 1 && (
+            {NumberOfPages > 1 && !isLoading && (
               <Pagination
                 activePage={activePage}
                 setActivePage={setActivePage}

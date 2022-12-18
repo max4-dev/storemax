@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-const Search = ({ searchValue, setSearchValue, setActiveType, setActivePage, setActiveTitle }) => {
+import { PageContext, SearchContext, TitleContext, TypeContext } from '../App';
+
+const Search = () => {
+  const { searchValue, setSearchValue } = useContext(SearchContext);
+  const { setActiveType } = useContext(TypeContext);
+  const { setActivePage } = useContext(PageContext);
+  const { setActiveTitle } = useContext(TitleContext);
+
   return (
     <label className="search">
       <input
