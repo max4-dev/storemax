@@ -9,10 +9,7 @@ import './scss/style.scss';
 import { Routes, Route } from 'react-router-dom';
 import Cart from './pages/cart';
 
-export const SearchContext = createContext('');
-export const TypeContext = createContext(0);
-export const PageContext = createContext(1);
-export const TitleContext = createContext('Все товары');
+export const AppContext = createContext('');
 
 function App() {
   const [searchValue, setSearchValue] = useState('');
@@ -22,23 +19,27 @@ function App() {
 
   return (
     <>
-      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
-        <TypeContext.Provider value={{ activeType, setActiveType }}>
-          <PageContext.Provider value={{ activePage, setActivePage }}>
-            <TitleContext.Provider value={{ activeTitle, setActiveTitle }}>
-              <Header />
-              <main className="main">
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/cart" element={<Cart />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
-              <Footer />
-            </TitleContext.Provider>
-          </PageContext.Provider>
-        </TypeContext.Provider>
-      </SearchContext.Provider>
+      <AppContext.Provider
+        value={{
+          searchValue,
+          setSearchValue,
+          activeType,
+          setActiveType,
+          activePage,
+          setActivePage,
+          activeTitle,
+          setActiveTitle,
+        }}>
+        <Header />
+        <main className="main">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
+      </AppContext.Provider>
     </>
   );
 }

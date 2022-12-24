@@ -1,13 +1,11 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { PageContext, SearchContext, TitleContext, TypeContext } from '../App';
+import { AppContext } from '../App';
 
 const Search = () => {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
-  const { setActiveType } = useContext(TypeContext);
-  const { setActivePage } = useContext(PageContext);
-  const { setActiveTitle } = useContext(TitleContext);
+  const { searchValue, setSearchValue, setActiveType, setActivePage, setActiveTitle } =
+    useContext(AppContext);
 
   return (
     <label className="search">

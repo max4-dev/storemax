@@ -1,30 +1,29 @@
 import React, { useContext } from 'react';
-import { PageContext, TitleContext, TypeContext } from '../App';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppContext } from '../App';
+import { setFilter } from '../redux/slices/filterSlice';
+
+const typeList = [
+  { name: 'Все товары' },
+  { name: 'Одежда' },
+  { name: 'Техника' },
+  { name: 'Продукты питания' },
+];
 
 const Aside = () => {
-  const typeList = [
-    { name: 'Все товары' },
-    { name: 'Одежда' },
-    { name: 'Техника' },
-    { name: 'Продукты питания' },
-    // { name: 'Спорт и отдых' },
-    // { name: 'Детские товары' },
-    // { name: 'Красота и здоровье' },
-    // { name: 'Цифровые товары' },
-  ];
+  const dispatch = useDispatch();
+  const filter = useSelector((state) => state.filter.type);
 
-  const { activeType, setActiveType } = useContext(TypeContext);
-  const { setActiveTitle } = useContext(TitleContext);
-  const { setActivePage } = useContext(PageContext);
+  const { setActiveTitle, setActivePage } = useContext(AppContext);
 
   return (
     <aside className="product-aside aside">
       <ul className="aside__list">
         {typeList.map((type, index) => (
           <li
-            className={activeType === index ? 'aside__item aside__item--active' : 'aside__item'}
+            className={filter === index ? 'aside__item aside__item--active' : 'aside__item'}
             onClick={() => {
-              setActiveType(index);
+              dispatch(setFilter(index));
               setActiveTitle(type.name);
               setActivePage(1);
             }}

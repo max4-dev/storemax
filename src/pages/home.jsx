@@ -6,21 +6,22 @@ import Skeleton from '../components/product-Item/skeleton';
 import Aside from '../components/aside';
 import '../scss/style.scss';
 import Pagination from '../components/pagination';
-import { PageContext, SearchContext, TitleContext, TypeContext } from '../App';
+import { AppContext } from '../App';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilter, setSort } from '../redux/slices/filterSlice';
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector((state) => state.filter.type);
+  const sort = useSelector((state) => state.filter.sort);
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { activeType, setActiveType } = useContext(TypeContext);
-  const { searchValue } = useContext(SearchContext);
-  const { activeTitle } = useContext(TitleContext);
-  const { activePage, setActivePage } = useContext(PageContext);
+  const { searchValue, activeTitle, activePage, setActivePage } = useContext(AppContext);
 
-  const [activeFilter, setActiveFilter] = useState({ name: 'Цена', filterProps: 'price' });
-
-  const category = activeType > 0 ? `category=${activeType}` : '';
-  const filter = activeFilter.filterProps;
+  const category = filter > 0 ? `category=${filter}` : '';
+  const sortFilter = sort.sortProperty;
   const search = searchValue ? `search=${searchValue}` : '';
 
   const pageSize = 4;
@@ -31,15 +32,15 @@ const Home = () => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      `https://638d373d4190defdb73ffb73.mockapi.io/items?${category}&sortBy=${filter}&order=desc&${search}`,
+      `https://638d373d4190defdb73ffb73.mockapi.io/items?${category}&sortBy=${sortFilter}&order=desc&${search}`,
     )
       .then((res) => res.json())
       .then((json) => {
         setItems(json);
         setIsLoading(false);
       });
-    window.scrollTo(0, 0);
-  }, [activeFilter, activeType, searchValue, activePage]);
+    // window.scrollTo(0, 0);
+  }, [sortFilter, filter, searchValue, activePage]);
 
   return (
     <section className="product">
@@ -49,20 +50,9 @@ const Home = () => {
           <sup>{items.length} товаров</sup>
         </h2>
         <div className="product__inner">
-          <Aside
-            onChangeType={(index) => {
-              setActiveType(index);
-              setActivePage(1);
-            }}
-          />
+          <Aside />
           <div className="product-content">
-            <Filter
-              value={activeFilter}
-              onChangeFilter={(index) => {
-                setActiveFilter(index);
-                setActivePage(1);
-              }}
-            />
+            <Filter />
             <div className="product-content__items">
               {isLoading
                 ? [...new Array(6)].map((_, index) => (
