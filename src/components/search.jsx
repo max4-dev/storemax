@@ -1,32 +1,53 @@
-import React, { useContext } from 'react';
+import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import { AppContext } from '../App';
+import { setSearch, setFilter, setTitle, setActivePage } from '../redux/slices/filterSlice';
+import debounce from 'lodash.debounce';
+import { useCallback } from 'react';
+import { useState } from 'react';
 
 const Search = () => {
-  const { searchValue, setSearchValue, setActiveType, setActivePage, setActiveTitle } =
-    useContext(AppContext);
+  const dispatch = useDispatch();
+  const search = useSelector((state) => state.filter.search);
+
+  const [inputValue, setInputValue] = useState('');
+
+  const inputRef = useRef();
+
+  const updateSearchValue = useCallback(
+    debounce((str) => {
+      dispatch(setSearch(str));
+    }, 250),
+    [],
+  );
+
+  const handleInputChange = (value) => {
+    setInputValue(value.target.value);
+    updateSearchValue(value.target.value);
+
+    dispatch(setFilter(0));
+    dispatch(setTitle('Все товары'));
+    dispatch(setActivePage(1));
+  };
+
+  const handleClear = () => {
+    dispatch(setSearch(''));
+    setInputValue('');
+    inputRef.current.focus();
+  };
 
   return (
     <label className="search">
       <input
-        onChange={(event) => {
-          setSearchValue(event.target.value);
-          setActiveType(0);
-          setActivePage(1);
-          setActiveTitle('Все товары');
-        }}
+        onChange={(value) => handleInputChange(value)}
         className="search__input"
         type="text"
-        placeholder="Хочу купить      "
-        value={searchValue}
+        placeholder="Хочу купить..."
+        value={inputValue}
+        ref={inputRef}
       />
-      {searchValue && (
-        <button
-          onClick={() => {
-            setSearchValue('');
-          }}
-          className="search__close">
+      {search && (
+        <button onClick={handleClear} className="search__close">
           <img src="images/icons/close-black.svg" alt="" />
         </button>
       )}

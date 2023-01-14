@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
 import styles from './pagination.module.scss';
+import { setActivePage } from '../../redux/slices/filterSlice';
+import { useDispatch } from 'react-redux';
 
-const Pagination = ({ activePage, setActivePage, NumberOfPages }) => {
+const Pagination = ({ activePage, NumberOfPages }) => {
   let list = [];
   for (let i = 1; i <= NumberOfPages; i++) {
     list.push(i);
   }
   const handleChangePage = (item) => {
-    setActivePage(item);
+    dispatch(setActivePage(item));
   };
+
+  const dispatch = useDispatch();
 
   return (
     <ul className={styles.list}>
       {activePage > 1 ? (
         <li
-          onClick={() => activePage > 1 && setActivePage(activePage - 1)}
+          onClick={() => activePage > 1 && dispatch(setActivePage(activePage - 1))}
           className={`${styles.listItem}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +62,7 @@ const Pagination = ({ activePage, setActivePage, NumberOfPages }) => {
       ))}
       {activePage < list.length ? (
         <li
-          onClick={() => activePage < list.length && setActivePage(activePage + 1)}
+          onClick={() => activePage < list.length && dispatch(setActivePage(activePage + 1))}
           className={styles.listItem}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

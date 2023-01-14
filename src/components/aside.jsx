@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppContext } from '../App';
-import { setFilter } from '../redux/slices/filterSlice';
+import { setFilter, setTitle, setActivePage } from '../redux/slices/filterSlice';
 
 const typeList = [
   { name: 'Все товары' },
@@ -14,7 +13,11 @@ const Aside = () => {
   const dispatch = useDispatch();
   const filter = useSelector((state) => state.filter.type);
 
-  const { setActiveTitle, setActivePage } = useContext(AppContext);
+  const handleChangeTitle = (index, type) => {
+    dispatch(setFilter(index));
+    dispatch(setTitle(type.name));
+    dispatch(setActivePage(1));
+  };
 
   return (
     <aside className="product-aside aside">
@@ -22,11 +25,7 @@ const Aside = () => {
         {typeList.map((type, index) => (
           <li
             className={filter === index ? 'aside__item aside__item--active' : 'aside__item'}
-            onClick={() => {
-              dispatch(setFilter(index));
-              setActiveTitle(type.name);
-              setActivePage(1);
-            }}
+            onClick={() => handleChangeTitle(index, type)}
             key={index}>
             {type.name}
             <img src="images/icons/arrow-right.svg" alt="" />
