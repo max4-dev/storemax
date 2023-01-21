@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter, setTitle, setActivePage } from '../redux/slices/filterSlice';
 
-const typeList = [
+export const typeList = [
   { name: 'Все товары' },
   { name: 'Одежда' },
   { name: 'Техника' },

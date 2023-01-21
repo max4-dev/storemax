@@ -102,6 +102,7 @@
     width: 100%;
   }
   &-content__filter{
+    display: inline-block;
     margin-bottom: 57px;
     position: relative;
   }
@@ -141,6 +142,47 @@
   }
   &-content__item{
     width: 250px;
+    position: relative;
+    overflow: hidden;
+  }
+  &-content__item:hover{
+    .product-content__btn{
+      transform: translateY(0);
+    }
+  }
+  &-content__btn{
+    width: 50px;
+    height: 50px;
+    transform: translateY(-150%);
+    transition: all .3s;
+    position: absolute;
+    border: none;
+    background-color: #005BFF;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span {
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      border-radius: 50%;
+      color: #005BFF;
+      font-size: 12px;
+    }
+    img{
+      width: 25px;
+    }
   }
   &-content__box-img{
     margin-bottom: 24px;
@@ -204,6 +246,7 @@
 .popup-filter{
   position: absolute;
   border-radius: 10px;
+  z-index: 10;
   &__list{
     box-shadow: 0px 5px 15px rgb(0 0 0 / 9%);
     border-radius: 10px;
@@ -349,8 +392,8 @@
 }
 
 .cart-btn{
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -358,12 +401,12 @@
   background-color: #005BFF;
   padding: 0;
   position: relative;
-  span{
+  span {
     position: absolute;
-    right: 3px;
-    top: 3px;
-    width: 15px;
-    height: 15px;
+    right: 4px;
+    top: 4px;
+    width: 20px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -371,6 +414,10 @@
     border-radius: 50%;
     color: #005BFF;
     font-size: 13px;
+    font-weight: bold;
+  }
+  img {
+    width: 25px;
   }
 }
 
@@ -430,6 +477,7 @@
     width: 80px;
     height: 80px;
     border-radius: 10px;
+    object-fit: contain;
   }
   &__name{
     margin-left: 14px;
@@ -463,6 +511,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    cursor: pointer;
   }
   &-counter__num{
     font-weight: 700;
@@ -489,6 +538,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    cursor: pointer;
   }
   &-bottom{
     display: flex;

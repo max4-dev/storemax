@@ -1,25 +1,34 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import qs from 'qs';
 
-import Filter from '../components/filter';
+import Filter, { sortList } from '../components/filter';
 import ProductItem from '../components/product-Item';
 import Skeleton from '../components/product-Item/skeleton';
 import Aside from '../components/aside';
 import '../scss/style.scss';
 import Pagination from '../components/pagination';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setFilters } from '../redux/slices/filterSlice';
 
 const Home = () => {
-  const filter = useSelector((state) => state.filter.type);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const type = useSelector((state) => state.filter.type);
   const sort = useSelector((state) => state.filter.sort);
   const search = useSelector((state) => state.filter.search);
   const title = useSelector((state) => state.filter.title);
   const activePage = useSelector((state) => state.filter.activePage);
 
+  const isSearch = useRef(false);
+  const isMounted = useRef(false);
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const category = filter > 0 ? `category=${filter}` : '';
+  const category = type > 0 ? `category=${type}` : '';
   const sortFilter = sort.sortProperty;
   const searchValue = search ? `search=${search}` : '';
 
@@ -28,7 +37,7 @@ const Home = () => {
   const NumberOfPages = Math.ceil(items.length / pageSize);
   const sliceItems = items.slice(startIndex, pageSize * activePage);
 
-  useEffect(() => {
+  const goodsFetch = () => {
     setIsLoading(true);
     axios
       .get(
@@ -38,9 +47,59 @@ const Home = () => {
         setItems(res.data);
         setIsLoading(false);
       });
+  };
 
+  useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+
+      const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
+
+      dispatch(
+        setFilters({
+          ...params,
+          sort,
+        }),
+      );
+      isSearch.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
+
+      dispatch(
+        setFilters({
+          ...params,
+          sort,
+        }),
+      );
+      isSearch.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
     // window.scrollTo(0, 0);
-  }, [sortFilter, filter, search, activePage]);
+    if (!isSearch.current) {
+      goodsFetch();
+    }
+
+    isSearch.current = false;
+  }, [sortFilter, type, search, activePage]);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const querryString = qs.stringify({
+        sortProperty: sort.sortProperty,
+        activePage,
+        type,
+      });
+      navigate(`?${querryString}`);
+    }
+    isMounted.current = true;
+  }, [sortFilter, type, search, activePage]);
 
   return (
     <section className="product">

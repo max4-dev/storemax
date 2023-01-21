@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Search from './search';
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const totalCount = useSelector((state) => state.cart.totalCount);
 
   const handleToggleMenu = () => {
     setOpen((prevState) => !prevState);
@@ -25,7 +27,7 @@ const Header = () => {
               Регистрация
             </a>
             <Link className="sign__btn cart-btn" to="/cart">
-              <span>3</span>
+              {totalCount ? <span>{totalCount}</span> : ''}
               <img src="images/icons/cart.svg" alt="" />
             </Link>
           </div>
