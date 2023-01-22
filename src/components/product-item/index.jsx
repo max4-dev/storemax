@@ -33,7 +33,7 @@ const ProductItem = ({ title, imageUrl, id, price, category }) => {
         <h5 className="product-content__title">{title}</h5>
         <p className="product-content__text">ID: {id}</p>
         <div className="product-content__badges">
-          <span className="product-content__price">{price} ₽</span>
+          <span className="product-content__price">{price.toLocaleString('ru-RU')} ₽</span>
           <a className="product-content__link" href="#">
             Посмотреть товар
           </a>

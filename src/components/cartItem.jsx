@@ -36,7 +36,7 @@ const CartItem = ({ id, imageUrl, title, price, category, count }) => {
           <img className="cart-counter__img" src="images/icons/plus.svg" alt="" />
         </button>
       </div>
-      <h5 className="cart__price">{price * count}₽</h5>
+      <h5 className="cart__price">{(price * count).toLocaleString('ru-RU')}₽</h5>
       <button className="cart__delete" onClick={() => handleDelete(id)}>
         <img className="cart__delete-img" src="images/icons/close.svg" alt="" />
       </button>

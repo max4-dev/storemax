@@ -84,6 +84,32 @@
       width: 205px;
     }
   }
+  .cart{
+    &__items{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    &__item{
+      display: flex;
+      flex-direction: column;
+      border: none;
+      padding: 25px;
+    }
+    &__name{
+      display: block;
+      margin: 15px auto;
+      text-align: center;
+    }
+    &-counter{
+      margin-bottom: 15px;
+    }
+    &__price{
+      display: inline-block;
+    }
+    &__delete{
+      order: -1;
+    }
+  }
 }
 
 @media (max-width: 500px) {
@@ -121,5 +147,29 @@
   }
   .sign__btn + .sign__btn {
     margin-left: 0;
+  }
+  .cart {
+    &__top{
+      display: block;
+    }
+    &__clear{
+      margin-top: 15px;
+    }
+    &__items {
+      display: block;
+    }
+    &-bottom{
+      display: block;
+    }
+    &-bottom__counter{
+      margin-bottom: 5px;
+    }
+    &-buttons{
+      flex-direction: column;
+    }
+    &-buttons__back{
+      margin-top: 10px;
+      order: 1;
+    }
   }
 }

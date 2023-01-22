@@ -14,6 +14,25 @@ const Cart = () => {
     dispatch(clearProducts());
   };
 
+  if (items.length < 1) {
+    return (
+      <div className="cart cart--empty">
+        <div className="container">
+          <div className="cart__inner">
+            <h2 className="title">Корзина пустая😕</h2>
+            <p className="cart__text">
+              Вероятней всего, вы не добавили товары в корзину. Для того, чтобы добавить товары,
+              перейди на главную страницу.
+            </p>
+            <Link className="cart__link" to="/">
+              <span>Вернуться на главную</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section className="cart">
       <div className="container container-s">
@@ -34,7 +53,7 @@ const Cart = () => {
               Всего товаров: <span>{totalCount} шт.</span>
             </div>
             <p className="cart-bottom__price">
-              Сумма заказа: <span>{totalPrice} ₽</span>
+              Сумма заказа: <span>{totalPrice.toLocaleString('ru-RU')}₽</span>
             </p>
           </div>
           <div className="cart-buttons">
