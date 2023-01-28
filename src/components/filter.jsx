@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSort } from '../redux/slices/filterSlice';
+import { setActivePage, setSort } from '../redux/slices/filterSlice';
 
 export const sortList = [
   { name: 'Цена', sortProperty: 'price' },
@@ -33,8 +33,8 @@ const Filter = () => {
   }, []);
 
   const handleChangeSelect = (obj) => {
-    // onChangeFilter(index);
     dispatch(setSort(obj));
+    dispatch(setActivePage(1));
     setOpen(!open);
   };
 

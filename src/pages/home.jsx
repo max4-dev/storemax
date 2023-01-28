@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 import qs from 'qs';
 
 import Filter, { sortList } from '../components/filter';
@@ -11,10 +10,13 @@ import Pagination from '../components/pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setFilters } from '../redux/slices/filterSlice';
+import { fetchGoods } from '../redux/slices/goodsSlice';
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { items, status } = useSelector((state) => state.goods);
 
   const type = useSelector((state) => state.filter.type);
   const sort = useSelector((state) => state.filter.sort);
@@ -25,9 +27,6 @@ const Home = () => {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
   const category = type > 0 ? `category=${type}` : '';
   const sortFilter = sort.sortProperty;
   const searchValue = search ? `search=${search}` : '';
@@ -37,16 +36,14 @@ const Home = () => {
   const NumberOfPages = Math.ceil(items.length / pageSize);
   const sliceItems = items.slice(startIndex, pageSize * activePage);
 
-  const goodsFetch = () => {
-    setIsLoading(true);
-    axios
-      .get(
-        `https://638d373d4190defdb73ffb73.mockapi.io/items?${category}&sortBy=${sortFilter}&order=desc&${searchValue}`,
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+  const getGoods = async () => {
+    dispatch(
+      fetchGoods({
+        category,
+        sortFilter,
+        searchValue,
+      }),
+    );
   };
 
   useEffect(() => {
@@ -81,10 +78,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
-    if (!isSearch.current) {
-      goodsFetch();
-    }
+    getGoods();
 
     isSearch.current = false;
   }, [sortFilter, type, search, activePage]);
@@ -112,16 +106,29 @@ const Home = () => {
           <Aside />
           <div className="product-content">
             <Filter />
-            <div className="product-content__items">
-              {isLoading
-                ? [...new Array(6)].map((_, index) => (
-                    <div className="product-content__item-wrapper" key={index}>
-                      <Skeleton />
-                    </div>
-                  ))
-                : sliceItems.map((product) => <ProductItem {...product} key={product.id} />)}
-            </div>
-            {NumberOfPages > 1 && !isLoading && (
+            {status === 'error' ? (
+              <div className="cart cart--empty">
+                <div className="container">
+                  <div className="cart__inner">
+                    <h2 className="title">Произошла ошибка😕</h2>
+                    <p className="cart__text">
+                      К сожалению, не удалось загрузить товары. Повторите попытку попозже.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="product-content__items">
+                {status === 'loading'
+                  ? [...new Array(6)].map((_, index) => (
+                      <div className="product-content__item-wrapper" key={index}>
+                        <Skeleton />
+                      </div>
+                    ))
+                  : sliceItems.map((product) => <ProductItem {...product} key={product.id} />)}
+              </div>
+            )}
+            {NumberOfPages > 1 && status === 'success' && (
               <Pagination activePage={activePage} NumberOfPages={NumberOfPages} />
             )}
           </div>
