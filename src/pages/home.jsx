@@ -9,7 +9,7 @@ import '../scss/style.scss';
 import Pagination from '../components/pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setFilters } from '../redux/slices/filterSlice';
+import { setFilters, setSearch } from '../redux/slices/filterSlice';
 import { fetchGoods } from '../redux/slices/goodsSlice';
 
 const Home = () => {
@@ -44,6 +44,15 @@ const Home = () => {
         searchValue,
       }),
     );
+  };
+
+  const subtitleName = (num) => {
+    if (num % 10 === 1) {
+      return 'товар';
+    } else if (num % 10 === 2 || num % 10 === 3 || num % 10 === 4) {
+      return 'товара';
+    }
+    return 'товаров';
   };
 
   useEffect(() => {
@@ -95,39 +104,43 @@ const Home = () => {
     isMounted.current = true;
   }, [sortFilter, type, search, activePage]);
 
+  if (status === 'error') {
+    return (
+      <div className="cart cart--empty">
+        <div className="container">
+          <div className="cart__inner">
+            <h2 className="title">Произошла ошибка😕</h2>
+            <p className="cart__text">
+              К сожалению, не удалось загрузить товары. Повторите попытку позже.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section className="product">
       <div className="container">
         <h2 className="title product__title">
           {title}
-          <sup>{items.length} товаров</sup>
+          <sup>
+            {items.length} {subtitleName(items.length)}
+          </sup>
         </h2>
         <div className="product__inner">
           <Aside />
           <div className="product-content">
             <Filter />
-            {status === 'error' ? (
-              <div className="cart cart--empty">
-                <div className="container">
-                  <div className="cart__inner">
-                    <h2 className="title">Произошла ошибка😕</h2>
-                    <p className="cart__text">
-                      К сожалению, не удалось загрузить товары. Повторите попытку попозже.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="product-content__items">
-                {status === 'loading'
-                  ? [...new Array(6)].map((_, index) => (
-                      <div className="product-content__item-wrapper" key={index}>
-                        <Skeleton />
-                      </div>
-                    ))
-                  : sliceItems.map((product) => <ProductItem {...product} key={product.id} />)}
-              </div>
-            )}
+            <div className="product-content__items">
+              {status === 'loading'
+                ? [...new Array(6)].map((_, index) => (
+                    <div className="product-content__item-wrapper" key={index}>
+                      <Skeleton />
+                    </div>
+                  ))
+                : sliceItems.map((product) => <ProductItem {...product} key={product.id} />)}
+            </div>
             {NumberOfPages > 1 && status === 'success' && (
               <Pagination activePage={activePage} NumberOfPages={NumberOfPages} />
             )}

@@ -73,10 +73,10 @@
     margin-left: 16px;
   }
   .signin{
-    @extend %btn-accent;
+    @extend %btn;
   }
   .signup{
-    @extend %btn;
+    @extend %btn-accent;
   }
 }
 

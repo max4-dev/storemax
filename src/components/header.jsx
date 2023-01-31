@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { selectTotalCount } from '../redux/slices/cartSlice';
 import Search from './search';
 
 const Header = () => {
   const [open, setOpen] = useState(false);
-  const totalCount = useSelector((state) => state.cart.totalCount);
+  const totalCount = useSelector(selectTotalCount);
 
   const handleToggleMenu = () => {
     setOpen((prevState) => !prevState);
