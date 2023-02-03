@@ -6,6 +6,9 @@ import debounce from 'lodash.debounce';
 import { useCallback } from 'react';
 import { useState } from 'react';
 
+import searchIcon from '../assets/images/icons/search.svg';
+import deleteIcon from '../assets/images/icons/close-black.svg';
+
 const Search = () => {
   const dispatch = useDispatch();
   const search = useSelector((state) => state.filter.search);
@@ -48,11 +51,11 @@ const Search = () => {
       />
       {search && (
         <button onClick={handleClear} className="search__close">
-          <img src="images/icons/close-black.svg" alt="" />
+          <img src={deleteIcon} alt="" />
         </button>
       )}
       <Link className="search__btn" to="/">
-        <img src="images/icons/search.svg" alt="" />
+        <img src={searchIcon} alt="" />
       </Link>
     </label>
   );

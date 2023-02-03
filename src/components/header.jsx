@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { selectTotalCount } from '../redux/slices/cartSlice';
 import Search from './search';
 
+import logo from '../assets/images/logo.svg';
+import cartIcon from '../assets/images/icons/cart.svg';
+
 const Header = () => {
   const [open, setOpen] = useState(false);
   const totalCount = useSelector(selectTotalCount);
@@ -17,7 +20,7 @@ const Header = () => {
       <div className="container">
         <div className="header__inner">
           <Link className="logo" to="/">
-            <img className="logo__img" src="images/logo.svg" alt="" />
+            <img className="logo__img" src={logo} alt="" />
           </Link>
           <Search />
           <div className={'sign' + (open ? ' sign--active' : '')}>
@@ -29,7 +32,7 @@ const Header = () => {
             </a>
             <Link className="sign__btn cart-btn" to="/cart">
               {totalCount ? <span>{totalCount}</span> : ''}
-              <img src="images/icons/cart.svg" alt="" />
+              <img src={cartIcon} alt="" />
             </Link>
           </div>
           <button

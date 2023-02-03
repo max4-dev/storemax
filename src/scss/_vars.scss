@@ -7,6 +7,7 @@
   border-radius: 10px;
   color: #005BFF;
   border: 2px solid #005BFF;
+  cursor: pointer;
 }
 
 %btn-accent{
@@ -18,4 +19,17 @@
   background-color: #005BFF;
   border-radius: 10px;
   border: 2px solid #005BFF;
+  cursor: pointer;
+}
+
+%category-1 {
+  background-color: #ECEEF0;
+}
+
+%category-2 {
+  background-color: #F6F7F9;
+}
+
+%category-3 {
+  background-color: #E9E6FD;
 }

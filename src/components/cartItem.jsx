@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { addProduct, minusProduct, removeProduct } from '../redux/slices/cartSlice';
 import { typeList } from './aside';
 
@@ -22,9 +23,9 @@ const CartItem = ({ id, imageUrl, title, price, category, count }) => {
     <div className="cart__item">
       <img className="cart__img" src={imageUrl} alt="" />
       <div className="cart__name">
-        <a className="cart__name-link" href="#">
+        <Link to={'/product/' + id} className="cart__name-link">
           <h4 className="cart__name-title">{title}</h4>
-        </a>
+        </Link>
         <p className="cart__name-text">{typeList[category].name}</p>
       </div>
       <div className="cart-counter">

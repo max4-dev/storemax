@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { addProduct } from '../../redux/slices/cartSlice';
 
 const ProductItem = ({ title, imageUrl, id, price, category }) => {
@@ -34,9 +35,9 @@ const ProductItem = ({ title, imageUrl, id, price, category }) => {
         <p className="product-content__text">ID: {id}</p>
         <div className="product-content__badges">
           <span className="product-content__price">{price.toLocaleString('ru-RU')} ₽</span>
-          <a className="product-content__link" href="#">
+          <Link className="product-content__link" to={'/product/' + id}>
             Посмотреть товар
-          </a>
+          </Link>
         </div>
       </div>
     </div>
