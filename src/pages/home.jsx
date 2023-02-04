@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import qs from 'qs';
 
-import Filter, { sortList } from '../components/filter';
-import ProductItem from '../components/product-Item';
-import Skeleton from '../components/product-Item/skeleton';
-import Aside from '../components/aside';
+import Filter, { sortList } from '../components/Filter';
+import ProductItem from '../components/productItem';
+import Skeleton from '../components/productItem/Skeleton';
 import '../scss/style.scss';
 import Pagination from '../components/pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setFilters, setSearch } from '../redux/slices/filterSlice';
 import { fetchGoods } from '../redux/slices/goodsSlice';
+import Aside from '../components/Aside';
 
 const Home = () => {
   const navigate = useNavigate();

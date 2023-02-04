@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addProduct, minusProduct, removeProduct } from '../redux/slices/cartSlice';
-import { typeList } from './aside';
+import { typeList } from './Aside';
 
 const CartItem = ({ id, imageUrl, title, price, category, count }) => {
   const dispatch = useDispatch();

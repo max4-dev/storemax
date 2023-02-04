@@ -1,12 +1,12 @@
 import React from 'react';
-import Home from './pages/home';
-import NotFound from './pages/notFound';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 // import Sales from './components/sales';
 import './scss/style.scss';
 import { Routes, Route } from 'react-router-dom';
-import Cart from './pages/cart';
-import FullProduct from './pages/fullProduct';
-import MainLayout from './layouts/mainLayout';
+import Cart from './pages/Cart';
+import FullProduct from './pages/FullProduct';
+import MainLayout from './layouts/MainLayout';
 
 function App() {
   return (

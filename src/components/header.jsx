@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectTotalCount } from '../redux/slices/cartSlice';
-import Search from './search';
+import Search from './Search';
 
 import logo from '../assets/images/logo.svg';
 import cartIcon from '../assets/images/icons/cart.svg';

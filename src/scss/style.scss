@@ -252,7 +252,7 @@
     box-shadow: 0px 5px 15px rgb(0 0 0 / 9%);
     border-radius: 10px;
     background-color: #fff;
-    padding: 10px 0;
+    overflow: hidden;
   }
   &__item{
     padding: 8px 15px;
@@ -606,6 +606,7 @@
   padding: 100px 0;
   &__content{
     display: flex;
+    flex-wrap: wrap;
   }
   &__img-box{
     max-width: 400px;
@@ -658,6 +659,20 @@
   &__btn{
     @extend %btn-accent;
     margin-top: 20px;
+    position: relative;
+    span{
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: #fff;
+      color: #005BFF;
+      position: absolute;
+      right: -15px;
+      top: -19px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
   &__link {
     display: inline-block;

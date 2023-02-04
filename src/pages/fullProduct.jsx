@@ -1,15 +1,19 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { typeList } from '../components/aside';
+import { typeList } from '../components/Aside';
 import { addProduct } from '../redux/slices/cartSlice';
 
 const FullProduct = () => {
   const dispatch = useDispatch();
   const [product, setProduct] = useState();
   const { productId } = useParams();
+
+  const items = useSelector((state) => state.cart.items);
+  const cartItem = items.find((item) => item.id === productId);
+  const addedCount = cartItem ? cartItem.count : 0;
 
   const handleAddProduct = (id, imageUrl, title, price, category) => {
     const item = {
@@ -33,7 +37,6 @@ const FullProduct = () => {
         console.log(error);
       }
     }
-
     fetchProduct();
   }, []);
 
@@ -81,6 +84,7 @@ const FullProduct = () => {
                   )
                 }>
                 Добавить в корзину
+                {addedCount ? <span>{addedCount}</span> : ''}
               </button>
             </div>
           </div>
