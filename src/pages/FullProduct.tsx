@@ -1,21 +1,29 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { typeList } from '../components/Aside';
 import { addProduct } from '../redux/slices/cartSlice';
 
-const FullProduct = () => {
+const FullProduct: FC = () => {
   const dispatch = useDispatch();
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState<{
+    id: string;
+    imageUrl: string;
+    title: string;
+    rating: number;
+    price: number;
+    category: number;
+  }>();
   const { productId } = useParams();
 
-  const items = useSelector((state) => state.cart.items);
-  const cartItem = items.find((item) => item.id === productId);
+  const items = useSelector((state: {cart: {items: []}}) => state.cart.items);
+  const cartItem: any = items.find((item: {id: string}) => item.id === productId);
+  
   const addedCount = cartItem ? cartItem.count : 0;
-
-  const handleAddProduct = (id, imageUrl, title, price, category) => {
+  
+  const handleAddProduct = (id: string, imageUrl: string, title: string, price: number, category: number) => {
     const item = {
       id,
       imageUrl,

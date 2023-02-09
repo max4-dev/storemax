@@ -1,21 +1,30 @@
-import React from 'react';
+import {FC} from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addProduct, minusProduct, removeProduct } from '../redux/slices/cartSlice';
 import { typeList } from './Aside';
 
-const CartItem = ({ id, imageUrl, title, price, category, count }) => {
+type CartItemProps = {
+  id: string, 
+  imageUrl: string;
+  title: string;
+  price: number;
+  category: number;
+  count: number;
+}
+
+const CartItem: FC<CartItemProps> = ({ id, imageUrl, title, price, category, count }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: string) => {
     dispatch(removeProduct(id));
   };
 
-  const handlePlusProduct = (id) => {
+  const handlePlusProduct = (id: string) => {
     dispatch(addProduct({ id }));
   };
 
-  const handleMinusProduct = (id) => {
+  const handleMinusProduct = (id: string) => {
     dispatch(minusProduct(id));
   };
 

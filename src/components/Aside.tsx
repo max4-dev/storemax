@@ -1,3 +1,4 @@
+import {FC} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter, setTitle, setActivePage } from '../redux/slices/filterSlice';
 
@@ -8,11 +9,11 @@ export const typeList = [
   { name: 'Продукты питания' },
 ];
 
-const Aside = () => {
+const Aside: FC = () => {
   const dispatch = useDispatch();
-  const filter = useSelector((state) => state.filter.type);
-
-  const handleChangeTitle = (index, type) => {
+  const filter = useSelector((state: any) => state.filter.type);
+  
+  const handleChangeTitle = (index: number, type: {name: string}) => {
     dispatch(setFilter(index));
     dispatch(setTitle(type.name));
     dispatch(setActivePage(1));

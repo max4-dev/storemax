@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import {FC} from 'react';
 import styles from './pagination.module.scss';
 import { setActivePage } from '../../redux/slices/filterSlice';
 import { useDispatch } from 'react-redux';
 
-const Pagination = ({ activePage, NumberOfPages }) => {
+type PaginationProps = {
+  activePage: number;
+  NumberOfPages: number;
+}
+
+const Pagination: FC<PaginationProps> = ({ activePage, NumberOfPages }) => {
   let list = [];
   for (let i = 1; i <= NumberOfPages; i++) {
     list.push(i);
   }
-  const handleChangePage = (item) => {
+  const handleChangePage = (item: {}) => {
     dispatch(setActivePage(item));
   };
 

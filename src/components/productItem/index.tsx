@@ -1,12 +1,20 @@
-import React from 'react';
+import {FC} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addProduct } from '../../redux/slices/cartSlice';
 
-const ProductItem = ({ title, imageUrl, id, price, category }) => {
+type ProductItemProps = {
+  title: string;
+  imageUrl: string;
+  id: string;
+  price: number;
+  category: number
+}
+
+const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, id, price, category }) => {
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.cart.items);
-  const cartItem = items.find((item) => item.id === id);
+  const items = useSelector((state: any) => state.cart.items);
+  const cartItem = items.find((item: {id: string}) => item.id === id);
 
   const addedCount = cartItem ? cartItem.count : 0;
 

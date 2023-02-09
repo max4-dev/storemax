@@ -1,9 +1,9 @@
-import React from 'react';
+import {FC} from 'react';
 import { Link } from 'react-router-dom';
 
 import logo from '../assets/images/footer-logo.jpg';
 
-const Footer = () => {
+const Footer: FC = () => {
   return (
     <footer className="footer">
       <div className="logo">

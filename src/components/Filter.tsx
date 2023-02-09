@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, FC } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,16 +10,16 @@ export const sortList = [
   { name: 'Популярность', sortProperty: 'rating' },
 ];
 
-const Filter = () => {
+const Filter: FC = () => {
   const dispatch = useDispatch();
-  const sort = useSelector((state) => state.filter.sort);
+  const sort = useSelector((state: any) => state.filter.sort);
 
   const [open, setOpen] = useState(false);
 
-  const filterRef = useRef();
+  const filterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: any) => {
       const path = event.composedPath();
       if (!path.includes(filterRef.current) && !open) {
         setOpen(false);
@@ -32,7 +32,7 @@ const Filter = () => {
     };
   }, []);
 
-  const handleChangeSelect = (obj) => {
+  const handleChangeSelect = (obj: {}) => {
     dispatch(setSort(obj));
     dispatch(setActivePage(1));
     setOpen(!open);

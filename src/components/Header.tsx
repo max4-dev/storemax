@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectTotalCount } from '../redux/slices/cartSlice';
@@ -7,7 +7,7 @@ import Search from './Search';
 import logo from '../assets/images/logo.svg';
 import cartIcon from '../assets/images/icons/cart.svg';
 
-const Header = () => {
+const Header: FC = () => {
   const [open, setOpen] = useState(false);
   const totalCount = useSelector(selectTotalCount);
 

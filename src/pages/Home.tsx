@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, FC } from 'react';
 import qs from 'qs';
 
 import Filter, { sortList } from '../components/Filter';
@@ -12,17 +12,12 @@ import { setFilters, setSearch } from '../redux/slices/filterSlice';
 import { fetchGoods } from '../redux/slices/goodsSlice';
 import Aside from '../components/Aside';
 
-const Home = () => {
+const Home: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { items, status } = useSelector((state) => state.goods);
-
-  const type = useSelector((state) => state.filter.type);
-  const sort = useSelector((state) => state.filter.sort);
-  const search = useSelector((state) => state.filter.search);
-  const title = useSelector((state) => state.filter.title);
-  const activePage = useSelector((state) => state.filter.activePage);
+  const { items, status } = useSelector((state: any) => state.goods);
+  const {type, sort,search, title, activePage} = useSelector((state: any) => state.filter);
 
   const isSearch = useRef(false);
   const isMounted = useRef(false);
@@ -38,6 +33,7 @@ const Home = () => {
 
   const getGoods = async () => {
     dispatch(
+      //@ts-ignore
       fetchGoods({
         category,
         sortFilter,
@@ -46,7 +42,7 @@ const Home = () => {
     );
   };
 
-  const subtitleName = (num) => {
+  const subtitleName = (num: number) => {
     if (num % 10 === 1) {
       return 'товар';
     } else if (num % 10 === 2 || num % 10 === 3 || num % 10 === 4) {
@@ -139,7 +135,7 @@ const Home = () => {
                       <Skeleton />
                     </div>
                   ))
-                : sliceItems.map((product) => <ProductItem {...product} key={product.id} />)}
+                : sliceItems.map((product: {title: string, imageUrl: string, id: string, price: number, category: number}) => <ProductItem {...product} key={product.id} />)}
             </div>
             {NumberOfPages > 1 && status === 'success' && (
               <Pagination activePage={activePage} NumberOfPages={NumberOfPages} />
