@@ -5,6 +5,7 @@ const initialState = {
   search: '',
   title: 'Все товары',
   activePage: 1,
+  order: 'desc',
   sort: {
     name: 'Цена',
     sortProperty: 'price',
@@ -35,9 +36,12 @@ export const filterSlice = createSlice({
       state.activePage = Number(action.payload.activePage);
       state.type = Number(action.payload.type);
     },
+    setOrder(state, action) {
+      state.order = action.payload;
+    },
   },
 });
 
-export const { setFilter, setSort, setSearch, setTitle, setActivePage, setFilters } =
+export const { setFilter, setSort, setSearch, setTitle, setActivePage, setFilters, setOrder } =
   filterSlice.actions;
 export default filterSlice.reducer;

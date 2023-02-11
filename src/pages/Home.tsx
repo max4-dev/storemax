@@ -31,6 +31,8 @@ const Home: FC = () => {
   const NumberOfPages = Math.ceil(items.length / pageSize);
   const sliceItems = items.slice(startIndex, pageSize * activePage);
 
+  const order = useSelector((state: any) => state.filter.order)
+
   const getGoods = async () => {
     dispatch(
       //@ts-ignore
@@ -38,6 +40,7 @@ const Home: FC = () => {
         category,
         sortFilter,
         searchValue,
+        order
       }),
     );
   };
@@ -86,7 +89,7 @@ const Home: FC = () => {
     getGoods();
 
     isSearch.current = false;
-  }, [sortFilter, type, search, activePage]);
+  }, [sortFilter, type, search, activePage, order]);
 
   useEffect(() => {
     if (isMounted.current) {

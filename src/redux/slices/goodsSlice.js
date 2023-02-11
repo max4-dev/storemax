@@ -7,9 +7,9 @@ const initialState = {
 };
 
 export const fetchGoods = createAsyncThunk('goods/fetchByIdStatus', async (props) => {
-  const { category, sortFilter, searchValue } = props;
+  const { category, sortFilter, searchValue, order } = props;
   const { data } = await axios.get(
-    `https://638d373d4190defdb73ffb73.mockapi.io/items?${category}&sortBy=${sortFilter}&order=desc&${searchValue}`,
+    `https://638d373d4190defdb73ffb73.mockapi.io/items?${category}&sortBy=${sortFilter}&order=${order}&${searchValue}`,
   );
   return data;
 });

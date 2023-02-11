@@ -63,6 +63,7 @@
     z-index: 100;
     right: 85px;
     opacity: .7;
+    cursor: pointer;
   }
 }
 
@@ -118,17 +119,20 @@
     span{
       color: #000;
     }
-    &::after{
-      content: "";
-      position: absolute;
-      top: 14px;
-      right: 23px;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 0 5.5px 10px 5.5px;
-      border-color: transparent transparent #000000 transparent;
-    }
+  }
+  &-content__filter-asc{
+    position: absolute;
+    top: 14px;
+    right: 23px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 5.5px 10px 5.5px;
+    border-color: transparent transparent #000000 transparent;
+    cursor: pointer;
+  }
+  &-content__filter-asc--active{
+    transform: rotate(180deg);
   }
   &-content__items{
     display: grid;

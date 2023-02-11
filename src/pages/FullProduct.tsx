@@ -18,9 +18,9 @@ const FullProduct: FC = () => {
   }>();
   const { productId } = useParams();
 
-  const items = useSelector((state: {cart: {items: []}}) => state.cart.items);
-  const cartItem: any = items.find((item: {id: string}) => item.id === productId);
-  
+  const items = useSelector((state: { cart: { items: Array<{ id: string; count: number }> } }) => state.cart.items);
+
+  const cartItem = items.find(item => item.id === productId);
   const addedCount = cartItem ? cartItem.count : 0;
   
   const handleAddProduct = (id: string, imageUrl: string, title: string, price: number, category: number) => {

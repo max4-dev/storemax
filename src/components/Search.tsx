@@ -1,4 +1,4 @@
-import { useRef, FC } from 'react';
+import { useRef, FC, ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setSearch, setFilter, setTitle, setActivePage } from '../redux/slices/filterSlice';
@@ -24,9 +24,9 @@ const Search: FC = () => {
     [],
   );
 
-  const handleInputChange = (value: any) => {
-    setInputValue(value.target.value);
-    updateSearchValue(value.target.value);
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+    updateSearchValue(event.target.value);
 
     dispatch(setFilter(0));
     dispatch(setTitle('Все товары'));
@@ -42,7 +42,7 @@ const Search: FC = () => {
   return (
     <label className="search">
       <input
-        onChange={(value) => handleInputChange(value)}
+        onChange={handleInputChange}
         className="search__input"
         type="text"
         placeholder="Хочу купить..."
