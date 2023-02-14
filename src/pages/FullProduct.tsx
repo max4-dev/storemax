@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { typeList } from '../components/Aside';
+import Loader from '../components/loader';
 import { addProduct } from '../redux/slices/cartSlice';
 
 const FullProduct: FC = () => {
@@ -49,7 +50,7 @@ const FullProduct: FC = () => {
   }, []);
 
   if (!product) {
-    return <div className="container">loading</div>;
+    return (<Loader />)
   }
 
   return (

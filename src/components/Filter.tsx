@@ -49,9 +49,9 @@ const Filter: FC = () => {
     dispatch(
       setOrder(active ? 'desc' : 'asc')
     )
+    dispatch(setActivePage(1));
   }
   
-
   return (
     <div className="product-content__filter" ref={filterRef}>
       <button className="product-content__filter-btn">
