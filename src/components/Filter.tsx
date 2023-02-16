@@ -2,12 +2,12 @@ import { useState, FC } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActivePage, setOrder, setSort } from '../redux/slices/filterSlice';
+import { OrderEnum, setActivePage, setOrder, setSort, SortPropertyEnum, SortType } from '../redux/slices/filterSlice';
 
 export const sortList = [
-  { name: 'Цена', sortProperty: 'price' },
-  { name: 'Название', sortProperty: 'title' },
-  { name: 'Популярность', sortProperty: 'rating' },
+  { name: 'Цена', sortProperty: SortPropertyEnum.PRICE },
+  { name: 'Название', sortProperty: SortPropertyEnum.TITLE },
+  { name: 'Популярность', sortProperty: SortPropertyEnum.RATING },
 ];
 
 type ClickOutside = MouseEvent & {
@@ -38,7 +38,7 @@ const Filter: FC = () => {
     };
   }, []);
 
-  const handleChangeSelect = (obj: {}) => {
+  const handleChangeSelect = (obj: SortType) => {
     dispatch(setSort(obj));
     dispatch(setActivePage(1));
     setOpen(!open);
@@ -47,7 +47,7 @@ const Filter: FC = () => {
   const handleChangeOrder = () => {
     setActive(!active)
     dispatch(
-      setOrder(active ? 'desc' : 'asc')
+      setOrder(active ? OrderEnum.DESC : OrderEnum.ASC)
     )
     dispatch(setActivePage(1));
   }

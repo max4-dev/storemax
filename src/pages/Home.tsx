@@ -9,7 +9,7 @@ import Pagination from '../components/pagination';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setFilters, setSearch } from '../redux/slices/filterSlice';
-import { fetchGoods } from '../redux/slices/goodsSlice';
+import { fetchGoods, Status } from '../redux/slices/goodsSlice';
 import Aside from '../components/Aside';
 
 const Home: FC = () => {
@@ -30,7 +30,7 @@ const Home: FC = () => {
   const startIndex = (activePage - 1) * pageSize;
   const NumberOfPages = Math.ceil(items.length / pageSize);
   const sliceItems = items.slice(startIndex, pageSize * activePage);
-
+  
   const order = useSelector((state: any) => state.filter.order)
 
   const getGoods = async () => {
@@ -132,7 +132,7 @@ const Home: FC = () => {
           <div className="product-content">
             <Filter />
             <div className="product-content__items">
-              {status === 'loading'
+              {status === Status.LOADING
                 ? [...new Array(6)].map((_, index) => (
                     <div className="product-content__item-wrapper" key={index}>
                       <Skeleton />
@@ -140,7 +140,7 @@ const Home: FC = () => {
                   ))
                 : sliceItems.map((product: {title: string, imageUrl: string, id: string, price: number, category: number}) => <ProductItem {...product} key={product.id} />)}
             </div>
-            {NumberOfPages > 1 && status === 'success' && (
+            {NumberOfPages > 1 && status === Status.SUCCESS && (
               <Pagination activePage={activePage} NumberOfPages={NumberOfPages} />
             )}
           </div>
