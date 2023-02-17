@@ -6,15 +6,16 @@ import ProductItem from '../components/productItem';
 import Skeleton from '../components/productItem/Skeleton';
 import '../scss/style.scss';
 import Pagination from '../components/pagination';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setFilters, setSearch } from '../redux/slices/filterSlice';
+import { FiltersProps, setFilters, setSearch } from '../redux/slices/filterSlice';
 import { fetchGoods, Status } from '../redux/slices/goodsSlice';
 import Aside from '../components/Aside';
+import { useAppDispatch } from '../redux/store';
 
 const Home: FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { items, status } = useSelector((state: any) => state.goods);
   const {type, sort,search, title, activePage} = useSelector((state: any) => state.filter);
@@ -35,7 +36,6 @@ const Home: FC = () => {
 
   const getGoods = async () => {
     dispatch(
-      //@ts-ignore
       fetchGoods({
         category,
         sortFilter,
@@ -56,30 +56,18 @@ const Home: FC = () => {
 
   useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
+      const params = qs.parse(window.location.search.substring(1)) as unknown as FiltersProps;
 
       const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
 
+      if (sort) {
+        params.sort = sort
+      } else {
+        params.sort = sortList[0]
+      }
+      
       dispatch(
-        setFilters({
-          ...params,
-          sort,
-        }),
-      );
-      isSearch.current = true;
-    }
-  }, []);
-
-  useEffect(() => {
-    if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-      const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
-
-      dispatch(
-        setFilters({
-          ...params,
-          sort,
-        }),
+        setFilters(params),
       );
       isSearch.current = true;
     }

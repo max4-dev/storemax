@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import { typeList } from '../components/Aside';
 import Loader from '../components/loader';
 import { addProduct } from '../redux/slices/cartSlice';
+import { GoodItem } from '../redux/slices/goodsSlice';
 
 const FullProduct: FC = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const FullProduct: FC = () => {
       title,
       price,
       category,
-    };
+    } as GoodItem;
     dispatch(addProduct(item));
   };
 

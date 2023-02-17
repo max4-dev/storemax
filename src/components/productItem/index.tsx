@@ -2,6 +2,7 @@ import {FC} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addProduct } from '../../redux/slices/cartSlice';
+import { GoodItem } from '../../redux/slices/goodsSlice';
 
 type ProductItemProps = {
   title: string;
@@ -25,7 +26,7 @@ const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, id, price, categor
       title,
       price,
       category,
-    };
+    } as GoodItem;
     dispatch(addProduct(item));
   };
 

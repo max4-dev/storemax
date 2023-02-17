@@ -2,6 +2,7 @@ import {FC} from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addProduct, minusProduct, removeProduct } from '../redux/slices/cartSlice';
+import { GoodItem } from '../redux/slices/goodsSlice';
 import { typeList } from './Aside';
 
 type CartItemProps = {
@@ -21,7 +22,7 @@ const CartItem: FC<CartItemProps> = ({ id, imageUrl, title, price, category, cou
   };
 
   const handlePlusProduct = (id: string) => {
-    dispatch(addProduct({ id }));
+    dispatch(addProduct({ id } as GoodItem));
   };
 
   const handleMinusProduct = (id: string) => {

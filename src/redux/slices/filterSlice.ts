@@ -25,6 +25,13 @@ interface FilterSliceState {
   sort: SortType,
 }
 
+export interface FiltersProps {
+  sortProperty: SortPropertyEnum,
+  activePage: string,
+  type: number,
+  sort: SortType
+}
+
 const initialState: FilterSliceState = {
   type: 0,
   search: '',
@@ -56,7 +63,7 @@ export const filterSlice = createSlice({
     setActivePage(state, action: PayloadAction<number>) {
       state.activePage = action.payload;
     },
-    setFilters(state, action) {
+    setFilters(state, action: PayloadAction<FiltersProps>) {
       state.sort = action.payload.sort;
       state.activePage = Number(action.payload.activePage);
       state.type = Number(action.payload.type);

@@ -13,7 +13,7 @@ const Pagination: FC<PaginationProps> = ({ activePage, NumberOfPages }) => {
   for (let i = 1; i <= NumberOfPages; i++) {
     list.push(i);
   }
-  const handleChangePage = (item: {}) => {
+  const handleChangePage = (item: number) => {
     dispatch(setActivePage(item));
   };
 
