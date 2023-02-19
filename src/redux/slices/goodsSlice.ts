@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { OrderEnum, SortPropertyEnum, SortType } from './filterSlice';
+import { OrderEnum, SortPropertyEnum } from './filterSlice';
 
 export enum Status {
   LOADING = 'loading',

@@ -1,8 +1,9 @@
 import { useState, FC } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { OrderEnum, setActivePage, setOrder, setSort, SortPropertyEnum, SortType } from '../redux/slices/filterSlice';
+import { RootState, useAppDispatch } from '../redux/store';
 
 export const sortList = [
   { name: 'Цена', sortProperty: SortPropertyEnum.PRICE },
@@ -15,8 +16,8 @@ type ClickOutside = MouseEvent & {
 }
 
 const Filter: FC = () => {
-  const dispatch = useDispatch();
-  const sort = useSelector((state: any) => state.filter.sort);
+  const dispatch = useAppDispatch();
+  const sort = useSelector((state: RootState) => state.filter.sort);
 
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(false);

@@ -1,8 +1,9 @@
 import {FC} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addProduct } from '../../redux/slices/cartSlice';
 import { GoodItem } from '../../redux/slices/goodsSlice';
+import { RootState, useAppDispatch } from '../../redux/store';
 
 type ProductItemProps = {
   title: string;
@@ -13,8 +14,8 @@ type ProductItemProps = {
 }
 
 const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, id, price, category }) => {
-  const dispatch = useDispatch();
-  const items = useSelector((state: any) => state.cart.items);
+  const dispatch = useAppDispatch();
+  const items = useSelector((state: RootState) => state.cart.items);
   const cartItem = items.find((item: {id: string}) => item.id === id);
 
   const addedCount = cartItem ? cartItem.count : 0;

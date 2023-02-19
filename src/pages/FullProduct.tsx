@@ -1,15 +1,16 @@
 import axios from 'axios';
 import { FC, useState } from 'react';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { typeList } from '../components/Aside';
 import Loader from '../components/loader';
 import { addProduct } from '../redux/slices/cartSlice';
 import { GoodItem } from '../redux/slices/goodsSlice';
+import { useAppDispatch } from '../redux/store';
 
 const FullProduct: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [product, setProduct] = useState<{
     id: string;
     imageUrl: string;

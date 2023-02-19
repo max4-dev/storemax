@@ -1,8 +1,8 @@
 import {FC} from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addProduct, minusProduct, removeProduct } from '../redux/slices/cartSlice';
 import { GoodItem } from '../redux/slices/goodsSlice';
+import { useAppDispatch } from '../redux/store';
 import { typeList } from './Aside';
 
 type CartItemProps = {
@@ -15,7 +15,7 @@ type CartItemProps = {
 }
 
 const CartItem: FC<CartItemProps> = ({ id, imageUrl, title, price, category, count }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleDelete = (id: string) => {
     dispatch(removeProduct(id));

@@ -11,14 +11,14 @@ import { useNavigate } from 'react-router-dom';
 import { FiltersProps, setFilters, setSearch } from '../redux/slices/filterSlice';
 import { fetchGoods, Status } from '../redux/slices/goodsSlice';
 import Aside from '../components/Aside';
-import { useAppDispatch } from '../redux/store';
+import { RootState, useAppDispatch } from '../redux/store';
 
 const Home: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { items, status } = useSelector((state: any) => state.goods);
-  const {type, sort,search, title, activePage} = useSelector((state: any) => state.filter);
+  const { items, status } = useSelector((state: RootState) => state.goods);
+  const {type, sort,search, title, activePage} = useSelector((state: RootState) => state.filter);
 
   const isSearch = useRef(false);
   const isMounted = useRef(false);
@@ -32,7 +32,7 @@ const Home: FC = () => {
   const NumberOfPages = Math.ceil(items.length / pageSize);
   const sliceItems = items.slice(startIndex, pageSize * activePage);
   
-  const order = useSelector((state: any) => state.filter.order)
+  const order = useSelector((state: RootState) => state.filter.order)
 
   const getGoods = async () => {
     dispatch(
@@ -91,7 +91,7 @@ const Home: FC = () => {
     isMounted.current = true;
   }, [sortFilter, type, search, activePage]);
 
-  if (status === 'error') {
+  if (status === Status.ERROR) {
     return (
       <div className="cart cart--empty">
         <div className="container">

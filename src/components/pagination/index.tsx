@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import styles from './pagination.module.scss';
 import { setActivePage } from '../../redux/slices/filterSlice';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../redux/store';
 
 type PaginationProps = {
   activePage: number;
@@ -17,7 +17,7 @@ const Pagination: FC<PaginationProps> = ({ activePage, NumberOfPages }) => {
     dispatch(setActivePage(item));
   };
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <ul className={styles.list}>

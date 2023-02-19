@@ -1,5 +1,5 @@
 import { useRef, FC, ChangeEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setSearch, setFilter, setTitle, setActivePage } from '../redux/slices/filterSlice';
 import debounce from 'lodash.debounce';
@@ -8,10 +8,11 @@ import { useState } from 'react';
 
 import searchIcon from '../assets/images/icons/search.svg';
 import deleteIcon from '../assets/images/icons/close-black.svg';
+import { RootState, useAppDispatch } from '../redux/store';
 
 const Search: FC = () => {
-  const dispatch = useDispatch();
-  const search = useSelector((state: any) => state.filter.search);
+  const dispatch = useAppDispatch();
+  const search = useSelector((state: RootState) => state.filter.search);
 
   const [inputValue, setInputValue] = useState('');
 
