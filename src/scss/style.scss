@@ -519,6 +519,13 @@
     border-radius: 50%;
     cursor: pointer;
   }
+  &-counter__btn:disabled{
+    border-color: #D7D7D7;
+    cursor: default;
+    path{
+      fill: #D7D7D7;
+    }
+  }
   &-counter__num{
     font-weight: 700;
     font-size: 22px;

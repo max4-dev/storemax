@@ -18,7 +18,7 @@ const Home: FC = () => {
   const dispatch = useAppDispatch();
 
   const { items, status } = useSelector((state: RootState) => state.goods);
-  const {type, sort,search, title, activePage} = useSelector((state: RootState) => state.filter);
+  const {type, sort, search, title, activePage} = useSelector((state: RootState) => state.filter);
 
   const isSearch = useRef(false);
   const isMounted = useRef(false);

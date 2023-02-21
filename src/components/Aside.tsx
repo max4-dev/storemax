@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import {FC, memo} from 'react';
 import { useSelector } from 'react-redux';
 import { setFilter, setTitle, setActivePage } from '../redux/slices/filterSlice';
 import { RootState, useAppDispatch } from '../redux/store';
@@ -10,11 +10,11 @@ export const typeList = [
   { name: 'Продукты питания' },
 ];
 
-const Aside: FC = () => {
+const Aside: FC = memo(() => {
   const dispatch = useAppDispatch();
   const filter = useSelector((state: RootState) => state.filter.type);
   
-  const handleChangeTitle = (index: number, type: {name: string}) => {
+  const handleChangeCategory = (index: number, type: {name: string}) => {
     dispatch(setFilter(index));
     dispatch(setTitle(type.name));
     dispatch(setActivePage(1));
@@ -26,7 +26,7 @@ const Aside: FC = () => {
         {typeList.map((type, index) => (
           <li
             className={filter === index ? 'aside__item aside__item--active' : 'aside__item'}
-            onClick={() => handleChangeTitle(index, type)}
+            onClick={() => handleChangeCategory(index, type)}
             key={index}>
             {type.name}
             <img src="images/icons/arrow-right.svg" alt="" />
@@ -35,6 +35,6 @@ const Aside: FC = () => {
       </ul>
     </aside>
   );
-};
+})
 
 export default Aside;

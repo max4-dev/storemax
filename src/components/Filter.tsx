@@ -1,4 +1,4 @@
-import { useState, FC } from 'react';
+import { useState, FC, memo } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
@@ -15,7 +15,7 @@ type ClickOutside = MouseEvent & {
   composedPath: () => Node[]
 }
 
-const Filter: FC = () => {
+const Filter: FC = memo(() => {
   const dispatch = useAppDispatch();
   const sort = useSelector((state: RootState) => state.filter.sort);
 
@@ -78,6 +78,6 @@ const Filter: FC = () => {
       )}
     </div>
   );
-};
+})
 
 export default Filter;
