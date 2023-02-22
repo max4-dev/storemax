@@ -1,7 +1,6 @@
 import { useRef, FC, ChangeEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setSearch, setFilter, setTitle, setActivePage } from '../redux/slices/filterSlice';
 import debounce from 'lodash.debounce';
 import { useCallback } from 'react';
 import { useState } from 'react';
@@ -9,6 +8,7 @@ import { useState } from 'react';
 import searchIcon from '../assets/images/icons/search.svg';
 import deleteIcon from '../assets/images/icons/close-black.svg';
 import { RootState, useAppDispatch } from '../redux/store';
+import { setActivePage, setFilter, setSearch, setTitle } from '../redux/filter/slice';
 
 const Search: FC = () => {
   const dispatch = useAppDispatch();

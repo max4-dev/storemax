@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { typeList } from '../components/Aside';
 import Loader from '../components/loader';
-import { addProduct } from '../redux/slices/cartSlice';
-import { GoodItem } from '../redux/slices/goodsSlice';
+import { addProduct } from '../redux/cart/slice';
+import { GoodItem } from '../redux/goods/types';
 import { useAppDispatch } from '../redux/store';
 
 const FullProduct: FC = () => {

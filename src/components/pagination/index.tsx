@@ -1,23 +1,22 @@
 import {FC} from 'react';
 import styles from './pagination.module.scss';
-import { setActivePage } from '../../redux/slices/filterSlice';
 import { useAppDispatch } from '../../redux/store';
+import { setActivePage } from '../../redux/filter/slice';
+import { paginationList } from '../../utils/paginationList';
 
-type PaginationProps = {
+export interface PaginationProps {
   activePage: number;
   NumberOfPages: number;
 }
 
 const Pagination: FC<PaginationProps> = ({ activePage, NumberOfPages }) => {
-  let list = [];
-  for (let i = 1; i <= NumberOfPages; i++) {
-    list.push(i);
-  }
+  const dispatch = useAppDispatch();
+  const list = paginationList(NumberOfPages);
+  
   const handleChangePage = (item: number) => {
     dispatch(setActivePage(item));
   };
 
-  const dispatch = useAppDispatch();
 
   return (
     <ul className={styles.list}>

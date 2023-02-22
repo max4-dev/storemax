@@ -2,7 +2,8 @@ import { useState, FC, memo } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { OrderEnum, setActivePage, setOrder, setSort, SortPropertyEnum, SortType } from '../redux/slices/filterSlice';
+import { setActivePage, setOrder, setSort } from '../redux/filter/slice';
+import { OrderEnum, SortPropertyEnum, SortType } from '../redux/filter/types';
 import { RootState, useAppDispatch } from '../redux/store';
 
 export const sortList = [

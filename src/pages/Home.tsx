@@ -8,10 +8,12 @@ import '../scss/style.scss';
 import Pagination from '../components/pagination';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { FiltersProps, setFilters, setSearch } from '../redux/slices/filterSlice';
-import { fetchGoods, Status } from '../redux/slices/goodsSlice';
 import Aside from '../components/Aside';
 import { RootState, useAppDispatch } from '../redux/store';
+import { fetchGoods } from '../redux/goods/asyncActions';
+import { FiltersProps } from '../redux/filter/types';
+import { setFilters } from '../redux/filter/slice';
+import { Status } from '../redux/goods/types';
 
 const Home: FC = () => {
   const navigate = useNavigate();

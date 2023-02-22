@@ -1,6 +1,6 @@
 import {FC, memo} from 'react';
 import { useSelector } from 'react-redux';
-import { setFilter, setTitle, setActivePage } from '../redux/slices/filterSlice';
+import { setActivePage, setFilter, setTitle } from '../redux/filter/slice';
 import { RootState, useAppDispatch } from '../redux/store';
 
 export const typeList = [

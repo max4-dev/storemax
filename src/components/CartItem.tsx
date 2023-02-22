@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import { Link } from 'react-router-dom';
-import { addProduct, minusProduct, removeProduct } from '../redux/slices/cartSlice';
-import { GoodItem } from '../redux/slices/goodsSlice';
+import { addProduct, minusProduct, removeProduct } from '../redux/cart/slice';
+import { GoodItem } from '../redux/goods/types';
 import { useAppDispatch } from '../redux/store';
 import { typeList } from './Aside';
 

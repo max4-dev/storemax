@@ -1,8 +1,8 @@
 import {FC} from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addProduct } from '../../redux/slices/cartSlice';
-import { GoodItem } from '../../redux/slices/goodsSlice';
+import { addProduct } from '../../redux/cart/slice';
+import { GoodItem } from '../../redux/goods/types';
 import { RootState, useAppDispatch } from '../../redux/store';
 
 type ProductItemProps = {

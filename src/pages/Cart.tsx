@@ -2,7 +2,8 @@ import {FC} from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CartItem from '../components/CartItem';
-import { clearProducts, selectTotalCount } from '../redux/slices/cartSlice';
+import { selectTotalCount } from '../redux/cart/selectors';
+import { clearProducts } from '../redux/cart/slice';
 import { RootState, useAppDispatch } from '../redux/store';
 
 const Cart: FC = () => {

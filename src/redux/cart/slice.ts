@@ -1,12 +1,7 @@
 import { RootState } from './../store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { GoodItem } from './goodsSlice';
-
-interface CartSliceState {
-  items: GoodItem[],
-  totalCount: number,
-  totalPrice: number,
-}
+import { CartSliceState } from './types';
+import { GoodItem } from '../goods/types';
 
 const initialState: CartSliceState = {
   items: [],
@@ -60,8 +55,6 @@ const cartSlice = createSlice({
     },
   },
 });
-
-export const selectTotalCount = (state: RootState) => state.cart.totalCount;
 
 export const { addProduct, minusProduct, removeProduct, clearProducts } = cartSlice.actions;
 export default cartSlice.reducer;
