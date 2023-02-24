@@ -1,11 +1,6 @@
 import { useEffect, useRef, FC } from 'react';
 import qs from 'qs';
 
-import Filter, { sortList } from '../components/Filter';
-import ProductItem from '../components/productItem';
-import Skeleton from '../components/productItem/Skeleton';
-import '../scss/style.scss';
-import Pagination from '../components/pagination';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Aside from '../components/Aside';
@@ -14,6 +9,9 @@ import { fetchGoods } from '../redux/goods/asyncActions';
 import { FiltersProps } from '../redux/filter/types';
 import { setFilters } from '../redux/filter/slice';
 import { Status } from '../redux/goods/types';
+
+import { sortList } from '../components/Filter';
+import {Filter, ProductItem, Skeleton, Pagination} from '../components/';
 
 const Home: FC = () => {
   const navigate = useNavigate();

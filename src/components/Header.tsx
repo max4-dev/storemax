@@ -23,18 +23,25 @@ const Header: FC = () => {
             <img className="logo__img" src={logo} alt="" />
           </Link>
           <Search />
-          <div className={'sign' + (open ? ' sign--active' : '')}>
-            <a className="signin sign__btn" href="#">
-              Войти
-            </a>
-            <a className="signup sign__btn" href="#">
-              Регистрация
-            </a>
-            <Link className="sign__btn cart-btn" to="/cart">
-              {totalCount ? <span>{totalCount}</span> : ''}
-              <img src={cartIcon} alt="" />
-            </Link>
-          </div>
+          <ul className={'sign' + (open ? ' sign--active' : '')}>
+            <li className="sign__item">
+              <a className="signin sign__btn" href="#">
+                Войти
+              </a>
+            </li>
+            <li className="sign__item">
+              <a className="signup sign__btn" href="#">
+                Регистрация
+              </a>
+            </li>
+            <li className="sign__item">
+              <Link className="sign__btn cart-btn" to="/cart">
+                {totalCount ? <span>{totalCount}</span> : ''}
+                <img src={cartIcon} alt="" />
+              </Link>
+            </li>
+          </ul>
+          
           <button
             className={'menu-btn' + (open ? ' menu-btn--active' : '')}
             onClick={handleToggleMenu}>

@@ -22,6 +22,20 @@
   cursor: pointer;
 }
 
+%btn-back{
+  position: relative;
+  padding-left: 35px;
+  &::before{
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-image: url('../../public/images/icons/arrow-left.svg');
+    left: 7px;
+    top: 8px;
+  }
+}
+
 %category-1 {
   background-color: #ECEEF0;
 }

@@ -149,15 +149,13 @@
     right: 10px;
   }
   .sign{
-    top: 159px;
-  }
-  .sign{
     flex-direction: column;
     height: auto;
     padding: 10px 0;
     grid-gap: 10px;
+    top: 159px;
   }
-  .sign__btn + .sign__btn {
+  .sign__item + .sign__item {
     margin-left: 0;
   }
   .cart {

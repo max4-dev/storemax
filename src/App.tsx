@@ -1,11 +1,24 @@
-import React from 'react';
 import Home from './pages/Home';
-import NotFound from './pages/NotFound';
 import './scss/style.scss';
 import { Routes, Route } from 'react-router-dom';
-import Cart from './pages/Cart';
-import FullProduct from './pages/FullProduct';
 import MainLayout from './layouts/MainLayout';
+import Loadable from 'react-loadable';
+import { Loader } from './components';
+
+const Cart = Loadable({
+  loader: () => import(/* webpackChunkName: "Cart" */'./pages/Cart'),
+  loading: () => <Loader />,
+});
+
+const FullProduct = Loadable({
+  loader: () => import(/* webpackChunkName: "FullProduct" */'./pages/FullProduct'),
+  loading: () => <Loader />,
+});
+
+const NotFound = Loadable({
+  loader: () => import(/* webpackChunkName: "NotFound" */'./pages/NotFound'),
+  loading: () => <Loader />,
+});
 
 function App() {
   return (

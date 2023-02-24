@@ -19,9 +19,11 @@ type ClickOutside = MouseEvent & {
 const Filter: FC = memo(() => {
   const dispatch = useAppDispatch();
   const sort = useSelector((state: RootState) => state.filter.sort);
+  const order = useSelector((state: RootState) => state.filter.order);
+  
 
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState(false);
+  const [orderStatus, setOrderStatus] = useState(order);
 
   const filterRef = useRef<HTMLDivElement>(null);
 
@@ -47,9 +49,9 @@ const Filter: FC = memo(() => {
   };
 
   const handleChangeOrder = () => {
-    setActive(!active)
+    setOrderStatus(orderStatus === OrderEnum.ASC ? OrderEnum.DESC : OrderEnum.ASC)
     dispatch(
-      setOrder(active ? OrderEnum.DESC : OrderEnum.ASC)
+      setOrder(orderStatus === OrderEnum.ASC ? OrderEnum.DESC : OrderEnum.ASC)
     )
     dispatch(setActivePage(1));
   }
@@ -58,7 +60,7 @@ const Filter: FC = memo(() => {
     <div className="product-content__filter" ref={filterRef}>
       <button className="product-content__filter-btn">
         <span onClick={() => setOpen(!open)}>{sort.name}</span>
-        <span onClick={handleChangeOrder} className={'product-content__filter-asc' + (active ? ' product-content__filter-asc--active' : '')}></span>
+        <span onClick={handleChangeOrder} className={'product-content__filter-asc' + (orderStatus === OrderEnum.ASC ? ' product-content__filter-asc--active' : '')}></span>
       </button>
       {open && (
         <div className="popup-filter">
