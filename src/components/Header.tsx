@@ -25,14 +25,14 @@ const Header: FC = () => {
           <Search />
           <ul className={'sign' + (open ? ' sign--active' : '')}>
             <li className="sign__item">
-              <a className="signin sign__btn" href="#">
+              <Link className="signin sign__btn" to="/login">
                 Войти
-              </a>
+              </Link>
             </li>
             <li className="sign__item">
-              <a className="signup sign__btn" href="#">
+              <Link className="signup sign__btn" to='/register'>
                 Регистрация
-              </a>
+              </Link>
             </li>
             <li className="sign__item">
               <Link className="sign__btn cart-btn" to="/cart">
