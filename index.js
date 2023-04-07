@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 
 import { registerValidation, loginValidation } from './validations/auth.js';
 import { UserController } from './controllers/index.js';
+import chechAuth from './utils/chechAuth.js';
 
 mongoose
   .connect(
@@ -25,6 +26,7 @@ app.get('/', (req, res) => {
 
 app.post('/auth/register', registerValidation, UserController.register);
 app.post('/auth/login', loginValidation, UserController.login);
+app.get('/auth/me', chechAuth, UserController.getMe);
 
 app.listen(4444, (err) => {
   if (err) {
