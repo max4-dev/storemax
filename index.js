@@ -1,8 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 
-import { registerValidation, loginValidation } from './validations/auth.js';
-import { UserController } from './controllers/index.js';
+import { registerValidation, loginValidation, goodsValidation } from './validations.js';
+import { UserController, GoodsController } from './controllers/index.js';
 import chechAuth from './utils/chechAuth.js';
 
 mongoose
@@ -27,6 +27,12 @@ app.get('/', (req, res) => {
 app.post('/auth/register', registerValidation, UserController.register);
 app.post('/auth/login', loginValidation, UserController.login);
 app.get('/auth/me', chechAuth, UserController.getMe);
+
+app.get('/goods', GoodsController.getAll);
+app.get('/goods/:id', GoodsController.getOne);
+app.post('/goods', chechAuth, goodsValidation, GoodsController.create);
+app.delete('/goods/:id', chechAuth, GoodsController.remove);
+app.patch('/goods/:id', chechAuth, GoodsController.update);
 
 app.listen(4444, (err) => {
   if (err) {
