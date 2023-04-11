@@ -6,7 +6,6 @@ import loadable from '@loadable/component';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
-
 const Cart = loadable(() => import(/* webpackChunkName: "Cart" */'./pages/Cart'));
 const FullProduct = loadable(() => import(/* webpackChunkName: "FullProduct" */'./pages/FullProduct'));
 const NotFound = loadable(() => import(/* webpackChunkName: "NotFound" */'./pages/NotFound'));

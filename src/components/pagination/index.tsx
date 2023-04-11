@@ -19,7 +19,7 @@ const Pagination: FC<PaginationProps> = ({ activePage, NumberOfPages }) => {
 
 
   return (
-    <ul className={styles.list}>
+    <ul className={`${styles.list} pagination`}>
       {activePage > 1 ? (
         <li
           onClick={() => activePage > 1 && dispatch(setActivePage(activePage - 1))}

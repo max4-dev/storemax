@@ -1,19 +1,30 @@
 import { useState, FC, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Search from './Search';
 
 import logo from '../assets/images/logo.svg';
 import cartIcon from '../assets/images/icons/cart.svg';
 import { selectTotalCount } from '../redux/cart/selectors';
+import { useTheme } from '../hooks/use-theme';
+
+enum Theme {
+  WHITE = 'white',
+  DARK = 'dark'
+}
 
 const Header: FC = () => {
   const [open, setOpen] = useState(false);
   const totalCount = useSelector(selectTotalCount);
+  const {theme, setTheme} = useTheme();
 
   const handleToggleMenu = () => {
     setOpen((prevState) => !prevState);
   };
+
+  const handleChangeTheme = () => {
+    setTheme(theme === Theme.WHITE ? Theme.DARK : Theme.WHITE);
+  }
 
   return (
     <header className="header">
@@ -24,6 +35,11 @@ const Header: FC = () => {
           </Link>
           <Search />
           <ul className={'sign' + (open ? ' sign--active' : '')}>
+            <li className="sign__item">
+              <button onClick={handleChangeTheme} className="sign__btn cart-btn">
+                Theme
+              </button>
+            </li>
             <li className="sign__item">
               <Link className="signin sign__btn" to="/login">
                 Войти
