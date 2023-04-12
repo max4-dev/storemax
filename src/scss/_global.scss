@@ -14,7 +14,7 @@ body{
   flex-direction: column;
   justify-content: space-between;
   overflow-x: hidden;
-  transition: all .5s;
+  transition: background-color .5s;
 }
 
 .container{
@@ -34,7 +34,7 @@ body{
   position: relative;
   display: flex;
   color: var(--text-color);
-  transition: all .5s;
+  transition: color .5s;
   sup{
     display: block;
     font-weight: 400;

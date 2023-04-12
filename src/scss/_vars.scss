@@ -1,21 +1,3 @@
-// // white theme
-// html[data-theme='white']{
-//   var(--text-color: #000;
-//   var(--accent-color: #005BFF;
-//   var(--bg-color: #fff;
-//   var(--bg-accent: #F5F7FA;
-//   var(--border-color: #F4F4F4;
-// }
-
-// // dark theme
-// html[data-theme='dark'] {
-//   var(--text-color: #fff;
-//   var(--accent-color: #0074E0;
-//   var(--bg-color: #15171E;
-//   var(--bg-accent: #23252B;
-//   var(--border-color: #23252B;
-// }
-
 /* white theme */
 html[data-theme='white'] {
   --text-color: #000;
@@ -23,6 +5,22 @@ html[data-theme='white'] {
   --bg-color: #ffffff;
   --bg-accent: #F5F7FA;
   --border-color: #F4F4F4;
+
+  %img-color {
+    filter: none;
+  }
+
+  %category-1 {
+    background-color: #ECEEF0;
+  }
+  
+  %category-2 {
+    background-color: #F6F7F9;
+  }
+  
+  %category-3 {
+    background-color: #E9E6FD;
+  }
 }
 
 /* dark theme */
@@ -32,6 +30,22 @@ html[data-theme='dark'] {
   --bg-color: #15171E;
   --bg-accent: #23252B;
   --border-color: #23252B;
+
+  %img-color {
+    filter: brightness(0) invert(1);
+  }
+
+  %category-1 {
+    background-color: #484a50;
+  }
+  
+  %category-2 {
+    background-color: #23252B;
+  }
+
+  %category-3 {
+    background-color: #161a21;
+  }
 }
 
 %btn{
@@ -70,28 +84,4 @@ html[data-theme='dark'] {
     left: 7px;
     top: 8px;
   }
-}
-
-// %category-1 {
-//   background-color: #ECEEF0;
-// }
-
-// %category-2 {
-//   background-color: #F6F7F9;
-// }
-
-// %category-3 {
-//   background-color: #E9E6FD;
-// }
-
-%category-1 {
-  background-color: #484a50;
-}
-
-%category-2 {
-  background-color: #23252B;
-}
-
-%category-3 {
-  background-color: #161a21;
 }

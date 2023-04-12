@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import Search from './Search';
 
 import logo from '../assets/images/logo.svg';
+import sun from '../assets/images/icons/sun.svg';
+import moon from '../assets/images/icons/moon.svg';
 import cartIcon from '../assets/images/icons/cart.svg';
 import { selectTotalCount } from '../redux/cart/selectors';
 import { useTheme } from '../hooks/use-theme';
@@ -37,7 +39,8 @@ const Header: FC = () => {
           <ul className={'sign' + (open ? ' sign--active' : '')}>
             <li className="sign__item">
               <button onClick={handleChangeTheme} className="sign__btn cart-btn">
-                Theme
+                {theme === Theme.WHITE ? <img src={moon} alt="" /> :
+                <img src={sun} alt="" />}
               </button>
             </li>
             <li className="sign__item">
