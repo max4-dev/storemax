@@ -9,6 +9,7 @@ import Register from './pages/Register';
 const Cart = loadable(() => import(/* webpackChunkName: "Cart" */'./pages/Cart'));
 const FullProduct = loadable(() => import(/* webpackChunkName: "FullProduct" */'./pages/FullProduct'));
 const NotFound = loadable(() => import(/* webpackChunkName: "NotFound" */'./pages/NotFound'));
+const Admin = loadable(() => import(/* webpackChunkName: "Admin" */'./pages/Admin'));
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="product/:productId" element={<FullProduct />} />
         <Route path="cart" element={<Cart />} />
+        <Route path="admin" element={<Admin />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

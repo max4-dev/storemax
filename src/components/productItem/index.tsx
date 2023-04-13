@@ -10,10 +10,11 @@ type ProductItemProps = {
   imageUrl: string;
   id: string;
   price: number;
-  category: number
+  category: number,
+  admin: boolean,
 }
 
-const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, id, price, category }) => {
+const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, id, price, category, admin }) => {
   const dispatch = useAppDispatch();
   const items = useSelector((state: RootState) => state.cart.items);
   const cartItem = items.find((item: {id: string}) => item.id === id);
@@ -41,13 +42,22 @@ const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, id, price, categor
         <div className={`product-content__box-img product-content__box-img--${category}`}>
           <img className="product-content__img" src={imageUrl} alt="" />
         </div>
-        <h5 className="product-content__title">{title}</h5>
-        <p className="product-content__text">ID: {id}</p>
-        <div className="product-content__badges">
-          <span className="product-content__price">{price.toLocaleString('ru-RU')} ₽</span>
-          <Link className="product-content__link" to={'/product/' + id}>
-            Посмотреть товар
-          </Link>
+        <div className='product-content__box-text'>
+          <h5 className="product-content__title">{title}</h5>
+          <p className="product-content__text">ID: {id}</p>
+          {admin ? <div className="product-content__badges">
+            <button className="product-content__link">
+              Редактировать
+            </button>
+            <button className="product-content__delete">
+              Удалить
+            </button>
+          </div> : <div className="product-content__badges">
+            <span className="product-content__price">{price.toLocaleString('ru-RU')} ₽</span>
+            <Link className="product-content__link" to={'/product/' + id}>
+              Посмотреть товар
+            </Link>
+          </div>}
         </div>
       </div>
     </div>

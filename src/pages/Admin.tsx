@@ -3,7 +3,6 @@ import qs from 'qs';
 
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import Aside from '../components/Aside';
 import { RootState, useAppDispatch } from '../redux/store';
 import { fetchGoods } from '../redux/goods/asyncActions';
 import { FiltersProps } from '../redux/filter/types';
@@ -11,14 +10,15 @@ import { setFilters } from '../redux/filter/slice';
 import { Status } from '../redux/goods/types';
 
 import { sortList } from '../components/Filter';
-import {Filter, ProductItem, Skeleton, Pagination} from '../components/';
+import {Filter, ProductItem, Skeleton, Pagination} from '../components';
+import AdminAside from '../components/AdminAside';
 
 const Home: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const { items, status } = useSelector((state: RootState) => state.goods);
-  const {type, sort, search, title, activePage} = useSelector((state: RootState) => state.filter);
+  const {type, sort, search, activePage} = useSelector((state: RootState) => state.filter);
 
   const isSearch = useRef(false);
   const isMounted = useRef(false);
@@ -110,23 +110,23 @@ const Home: FC = () => {
     <section className="product">
       <div className="container">
         <h2 className="title product__title">
-          {title}
+          Админка
           <sup>
             {items.length} {subtitleName(items.length)}
           </sup>
         </h2>
         <div className="product__inner">
-          <Aside />
+          <AdminAside />
           <div className="product-content">
             <Filter />
-            <div className="product-content__items">
+            <div className="product-content__items product-content__items--admin">
               {status === Status.LOADING
                 ? [...new Array(6)].map((_, index) => (
                     <div className="product-content__item-wrapper" key={index}>
                       <Skeleton />
                     </div>
                   ))
-                : sliceItems.map((product: {title: string, imageUrl: string, id: string, price: number, category: number}) => <ProductItem {...product} key={product.id} admin={false} />)}
+                : sliceItems.map((product: {title: string, imageUrl: string, id: string, price: number, category: number}) => <ProductItem {...product} key={product.id} admin={true} />)}
             </div>
             {NumberOfPages > 1 && status === Status.SUCCESS && (
               <Pagination activePage={activePage} NumberOfPages={NumberOfPages} />
