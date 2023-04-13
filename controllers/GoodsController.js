@@ -5,6 +5,9 @@ export const create = async (req, res) => {
     const doc = new GoodsModel({
       title: req.body.title,
       text: req.body.text,
+      price: req.body.price,
+      rating: req.body.rating,
+      category: req.body.category,
       imageUrl: req.body.imageUrl,
     });
 
@@ -82,6 +85,9 @@ export const update = async (req, res) => {
       {
         title: req.body.title,
         text: req.body.text,
+        price: req.body.price,
+        rating: req.body.rating,
+        category: req.body.category,
         imageUrl: req.body.imageUrl,
       },
     );

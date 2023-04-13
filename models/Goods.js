@@ -16,6 +16,18 @@ const GoodsModel = new Schema(
       type: String,
       required: true,
     },
+    price: {
+      type: Number,
+      required: true,
+    },
+    category: {
+      type: Number,
+      required: true,
+    },
+    rating: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,
