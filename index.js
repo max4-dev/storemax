@@ -1,10 +1,13 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import multer from 'multer';
+import cors from 'cors';
 
 import { registerValidation, loginValidation, goodsValidation } from './validations.js';
 import { UserController, GoodsController } from './controllers/index.js';
 import { chechAuth, checkIsAdmin, handleValidationErrors } from './utils/index.js';
+
+import GoodsModel from './models/Goods.js';
 
 mongoose
   .connect(
@@ -31,6 +34,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.use(express.json());
+app.use(cors());
 app.use('/uploads', express.static('uploads'));
 
 app.get('/', (req, res) => {

@@ -21,7 +21,7 @@ const GoodsModel = new Schema(
       required: true,
     },
     category: {
-      type: Number,
+      type: String,
       required: true,
     },
     rating: {

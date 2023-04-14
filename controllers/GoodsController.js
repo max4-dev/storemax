@@ -24,9 +24,13 @@ export const create = async (req, res) => {
 
 export const getAll = async (req, res) => {
   try {
-    const good = await GoodsModel.find();
+    const { sortProperty, activePage, category } = req.query;
+    console.log(req.query);
 
-    res.json(good);
+    const goods = await (category > 0 ? GoodsModel.find({ category }) : GoodsModel.find())
+      .sort({ [sortProperty]: 1 })
+      .exec();
+    res.json(goods);
   } catch (err) {
     console.log(err);
     res.status(500).json({
