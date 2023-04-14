@@ -126,7 +126,7 @@ const Home: FC = () => {
                       <Skeleton />
                     </div>
                   ))
-                : sliceItems.map((product: {title: string, imageUrl: string, id: string, price: number, category: number}) => <ProductItem {...product} key={product.id} admin={true} />)}
+                : sliceItems.map((product: {title: string, imageUrl: string, _id: string, price: number, category: number}) => <ProductItem {...product} key={product._id} admin={true} />)}
             </div>
             {NumberOfPages > 1 && status === Status.SUCCESS && (
               <Pagination activePage={activePage} NumberOfPages={NumberOfPages} />

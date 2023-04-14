@@ -7,7 +7,7 @@ export enum Status {
 }
 
 export type GoodItem = {
-  id: string,
+  _id: string,
   imageUrl: string,
   title: string,
   price: number,

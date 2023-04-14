@@ -8,22 +8,22 @@ import { RootState, useAppDispatch } from '../../redux/store';
 type ProductItemProps = {
   title: string;
   imageUrl: string;
-  id: string;
+  _id: string;
   price: number;
   category: number,
   admin: boolean,
 }
 
-const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, id, price, category, admin }) => {
+const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, _id, price, category, admin }) => {
   const dispatch = useAppDispatch();
   const items = useSelector((state: RootState) => state.cart.items);
-  const cartItem = items.find((item: {id: string}) => item.id === id);
+  const cartItem = items.find((item: {_id: string}) => item._id === _id);
 
   const addedCount = cartItem ? cartItem.count : 0;
 
   const handleAddProduct = () => {
     const item = {
-      id,
+      _id,
       imageUrl,
       title,
       price,
@@ -34,7 +34,7 @@ const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, id, price, categor
 
   return (
     <div className="product-content__item-wrapper">
-      <div className="product-content__item" key={id}>
+      <div className="product-content__item" key={_id}>
         <button className="product-content__btn" onClick={handleAddProduct}>
           {addedCount ? <span>{addedCount}</span> : ''}
           <img src="images/icons/cart.svg" alt="" />
@@ -44,7 +44,7 @@ const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, id, price, categor
         </div>
         <div className='product-content__box-text'>
           <h5 className="product-content__title">{title}</h5>
-          <p className="product-content__text">ID: {id}</p>
+          <p className="product-content__text">ID: {_id}</p>
           {admin ? <div className="product-content__badges">
             <button className="product-content__link">
               Редактировать
@@ -54,7 +54,7 @@ const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, id, price, categor
             </button>
           </div> : <div className="product-content__badges">
             <span className="product-content__price">{price.toLocaleString('ru-RU')} ₽</span>
-            <Link className="product-content__link" to={'/product/' + id}>
+            <Link className="product-content__link" to={'/product/' + _id}>
               Посмотреть товар
             </Link>
           </div>}

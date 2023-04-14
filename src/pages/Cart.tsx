@@ -46,8 +46,8 @@ const Cart: FC = () => {
             </button>
           </div>
           <div className="cart__items">
-            {items.map((item: { id: string, imageUrl: string, title: string, price: number, category: number, count: number}) => (
-              <CartItem {...item} key={item.id} />
+            {items.map((item: { _id: string, imageUrl: string, title: string, price: number, category: number, count: number}) => (
+              <CartItem {...item} key={item._id} />
             ))}
           </div>
           <div className="cart-bottom">

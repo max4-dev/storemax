@@ -23,7 +23,7 @@ const Home: FC = () => {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const category = type > 0 ? `category=${type}` : '';
+  const category = type > 0 ? `category=${type}` : 'category=0';
   const sortFilter = sort.sortProperty;
   const searchValue = search ? `search=${search}` : '';
 
@@ -44,6 +44,7 @@ const Home: FC = () => {
       }),
     );
   };
+  
 
   const subtitleName = (num: number) => {
     if (num % 10 === 1) {
@@ -126,7 +127,7 @@ const Home: FC = () => {
                       <Skeleton />
                     </div>
                   ))
-                : sliceItems.map((product: {title: string, imageUrl: string, id: string, price: number, category: number}) => <ProductItem {...product} key={product.id} admin={false} />)}
+                : sliceItems.map((product: {title: string, imageUrl: string, _id: string, price: number, category: number}) => <ProductItem {...product} key={product._id} admin={false} />)}
             </div>
             {NumberOfPages > 1 && status === Status.SUCCESS && (
               <Pagination activePage={activePage} NumberOfPages={NumberOfPages} />
