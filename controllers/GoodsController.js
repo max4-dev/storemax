@@ -24,11 +24,22 @@ export const create = async (req, res) => {
 
 export const getAll = async (req, res) => {
   try {
-    const { sortProperty, activePage, category } = req.query;
-    console.log(req.query);
+    const { sortBy, activePage, category, order } = req.query;
 
-    const goods = await (category > 0 ? GoodsModel.find({ category }) : GoodsModel.find())
-      .sort({ [sortProperty]: 1 })
+    let sort = {};
+    if (sortBy === 'price') {
+      sort.price = order === 'desc' ? -1 : 1;
+    } else if (sortBy === 'rating') {
+      sort.rating = order === 'desc' ? -1 : 1;
+    } else if (sortBy === 'title') {
+      sort.title = order === 'desc' ? -1 : 1;
+    }
+
+    const goods = await (category > 0
+      ? GoodsModel.find({ category }).sort(sort)
+      : GoodsModel.find()
+    )
+      .sort(sort)
       .exec();
     res.json(goods);
   } catch (err) {
