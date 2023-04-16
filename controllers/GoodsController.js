@@ -24,7 +24,7 @@ export const create = async (req, res) => {
 
 export const getAll = async (req, res) => {
   try {
-    const { sortBy, activePage, category, order } = req.query;
+    const { sortBy, search, category, order } = req.query;
 
     let sort = {};
     if (sortBy === 'price') {
@@ -35,9 +35,14 @@ export const getAll = async (req, res) => {
       sort.title = order === 'desc' ? -1 : 1;
     }
 
+    let filter = {};
+    if (search) {
+      filter.title = { $regex: `.*${search}.*`, $options: 'i' };
+    }
+
     const goods = await (category > 0
-      ? GoodsModel.find({ category }).sort(sort)
-      : GoodsModel.find()
+      ? GoodsModel.find({ category, ...filter }).sort(sort)
+      : GoodsModel.find(filter)
     )
       .sort(sort)
       .exec();
