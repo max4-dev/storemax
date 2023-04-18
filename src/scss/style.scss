@@ -765,6 +765,37 @@
   }
 }
 
+.user{
+  background-color: var(--bg-accent);
+  color: var(--text-color);
+  transition: all .5s;
+  padding: 5px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  &__name{
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 26px;
+  }
+  &__email{
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 19px;
+  }
+  .popup-filter{
+    bottom: -85px;
+    left: 0;
+    right: 0;
+  }
+  button{
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    color: var(--text-color);
+  }
+}
+
 .notfound{
   color: var(--text-color);
 }

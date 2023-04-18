@@ -15,10 +15,25 @@ enum Theme {
   DARK = 'dark'
 }
 
+type ClickOutside = MouseEvent & {
+  composedPath: () => Node[]
+}
+
+let isAuth = true;
+export const userMenuList = [
+  { name: 'Админка', link: '/admin' },
+  { name: 'Выход', func: () => {
+    isAuth = false;
+  } },
+];
+
 const Header: FC = () => {
   const [open, setOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
   const totalCount = useSelector(selectTotalCount);
   const {theme, setTheme} = useTheme();
+  const filterRef = useRef<HTMLDivElement>(null);
+
 
   const handleToggleMenu = () => {
     setOpen((prevState) => !prevState);
@@ -27,6 +42,25 @@ const Header: FC = () => {
   const handleChangeTheme = () => {
     setTheme(theme === Theme.WHITE ? Theme.DARK : Theme.WHITE);
   }
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as ClickOutside;
+      const path = _event.composedPath();
+      if (filterRef.current && !path.includes(filterRef.current) && !openMenu) {
+        setOpenMenu(false);
+      }
+    };
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  const handleChangeSelect = () => {
+    setOpenMenu(!openMenu);
+  };
 
   return (
     <header className="header">
@@ -43,16 +77,43 @@ const Header: FC = () => {
                 <img src={sun} alt="" />}
               </button>
             </li>
-            <li className="sign__item">
-              <Link className="signin sign__btn" to="/login">
-                Войти
-              </Link>
-            </li>
-            <li className="sign__item">
-              <Link className="signup sign__btn" to='/register'>
-                Регистрация
-              </Link>
-            </li>
+            {isAuth ? 
+            <li className="sign__item user">
+              <div onClick={handleChangeSelect} className="user__info" ref={filterRef}>
+                <h6 className="user__name">
+                  Max
+                </h6>
+                <p className="user__email">
+                  {'maksim.bogomyakov@gmail.com'.substring(0, 15) + '...'}
+                </p>
+              </div>
+              <div className="popup-filter">
+              {openMenu && <ul className="popup-filter__list">
+                {userMenuList.map((item) => (
+                  <li
+                    className={
+                      'popup-filter__item'
+                    }
+                    key={item.name}>
+                      {item.link ? <Link to={item.link}>{item.name}</Link> : <button onClick={item.func}>{item.name}</button>}
+                  </li>
+                ))}
+              </ul>}
+            </div>
+            </li> : 
+            <>
+              <li className="sign__item">
+                <Link className="signin sign__btn" to="/login">
+                  Войти
+                </Link>
+              </li>
+              <li className="sign__item">
+                <Link className="signup sign__btn" to='/register'>
+                  Регистрация
+                </Link>
+              </li>
+            </>
+            }
             <li className="sign__item">
               <Link className="sign__btn cart-btn" to="/cart">
                 {totalCount ? <span>{totalCount}</span> : ''}
