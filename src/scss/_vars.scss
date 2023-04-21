@@ -5,6 +5,7 @@ html[data-theme='white'] {
   --bg-color: #ffffff;
   --bg-accent: #F5F7FA;
   --border-color: #F4F4F4;
+  --footer-color: #212224;
 
   %img-color {
     filter: none;
@@ -30,6 +31,7 @@ html[data-theme='dark'] {
   --bg-color: #15171E;
   --bg-accent: #23252B;
   --border-color: #23252B;
+  --footer-color: #23252B;
 
   %img-color {
     filter: brightness(0) invert(1);

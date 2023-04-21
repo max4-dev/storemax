@@ -12,10 +12,23 @@ import { Status } from '../redux/goods/types';
 import { sortList } from '../components/Filter';
 import {Filter, ProductItem, Skeleton, Pagination} from '../components';
 import AdminAside from '../components/AdminAside';
+import { selectIsAuth } from '../redux/auth/slice';
+import { getUserData } from '../redux/auth/asyncActions';
 
 const Home: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const isAuth = useSelector(selectIsAuth);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const data = await dispatch(getUserData());
+      if (!isAuth || !data.payload.admin) {
+        navigate('/')
+      }
+    }
+    getUser();
+  }, [isAuth]);
 
   const { items, status } = useSelector((state: RootState) => state.goods);
   const {type, sort, search, activePage} = useSelector((state: RootState) => state.filter);

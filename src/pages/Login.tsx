@@ -1,4 +1,9 @@
 import { useRef, FC, MouseEvent, useState } from "react";
+import { useForm } from "react-hook-form";
+import { fetchUserData } from "../redux/auth/asyncActions";
+import { LoginParams } from "../redux/auth/types";
+import { useAppDispatch } from "../redux/store";
+import { useNavigate } from "react-router-dom";
 
 export enum InputTypes {
   PASSWORD = 'password',
@@ -6,17 +11,40 @@ export enum InputTypes {
 }
 
 const Login: FC = () => {
+  const dispatch = useAppDispatch();
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const [show, setShow] = useState(false);
+  const [type, setType] = useState(InputTypes.PASSWORD);
+  const navigate = useNavigate();
+
+  const {register, handleSubmit, setError, formState: {errors, isValid}} = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    mode: 'onChange'
+  });
+
+  const onSubmit = async (values: LoginParams) => {
+    const data = await dispatch(fetchUserData(values));
+    if (!data.payload) {
+      return alert('Не удалось авторизоваться');
+    }
+    if ('token' in data.payload) {
+      window.localStorage.setItem('token', data.payload.token);
+      navigate('/')
+    }
+  }
+  
   
 
   const handleShow = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (passwordRef.current?.type === InputTypes.PASSWORD) {
-      passwordRef.current.type = InputTypes.TEXT;
+    if (type === InputTypes.PASSWORD) {
+      setType(InputTypes.TEXT)
       setShow(true);
-    } else if (passwordRef.current?.type === InputTypes.TEXT) {
-      passwordRef.current.type = InputTypes.PASSWORD;
+    } else if (type === InputTypes.TEXT) {
+      setType(InputTypes.PASSWORD)
       setShow(false);
     }
   }
@@ -25,14 +53,16 @@ const Login: FC = () => {
     <>
       <section className="login">
         <h2 className="title login__title">Вход</h2>
-        <form className="login__form" action="#">
+        <form className="login__form" onSubmit={handleSubmit(onSubmit)}>
           <label className="login__label">
-            Имя
-            <input className="login__input" type="text" />
+            Email
+            <input {...register('email', {required: 'Укажите почту'})} className={"login__input" + (errors.email?.message ? ' login__input--err' : '')} type="email" />
+          <span className="login__err-text">{errors.email?.message}</span>
           </label>
           <label className="login__label login__password">
             Пароль
-            <input ref={passwordRef} className="login__input login__password-input" type={InputTypes.PASSWORD} />
+             {/*ref={passwordRef} */}
+            <input className={"login__input login__password-input" + (errors.password?.message ? ' login__input--err' : '')} type={type} {...register('password', {required: 'Укажите пароль'})} />
             <button onClick={handleShow} className="login__password-btn">{
             show ? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-eye-slash" viewBox="0 0 16 16">
             <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
@@ -42,6 +72,7 @@ const Login: FC = () => {
           <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
           <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg>}</button>
           </label>
+          <span className="login__err-text">{errors.password?.message}</span>
           <label className="login__checkbox-label">
             <input className="login__checkbox" type="checkbox" />
             <span></span>

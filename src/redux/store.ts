@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import filter from './filter/slice';
 import cart from './cart/slice';
 import goods from './goods/slice';
+import auth from './auth/slice';
 import { useDispatch } from 'react-redux';
 
 import { 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   filter,
   cart,
   goods,
+  auth,
 })
 
 const persistConfig = {

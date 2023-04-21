@@ -9,6 +9,8 @@ import moon from '../assets/images/icons/moon.svg';
 import cartIcon from '../assets/images/icons/cart.svg';
 import { selectTotalCount } from '../redux/cart/selectors';
 import { useTheme } from '../hooks/use-theme';
+import { logOut, selectIsAuth } from '../redux/auth/slice';
+import { useAppDispatch } from '../redux/store';
 
 enum Theme {
   WHITE = 'white',
@@ -19,20 +21,23 @@ type ClickOutside = MouseEvent & {
   composedPath: () => Node[]
 }
 
-let isAuth = true;
-export const userMenuList = [
-  { name: 'Админка', link: '/admin' },
-  { name: 'Выход', func: () => {
-    isAuth = false;
-  } },
-];
-
 const Header: FC = () => {
+  const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const totalCount = useSelector(selectTotalCount);
   const {theme, setTheme} = useTheme();
   const filterRef = useRef<HTMLDivElement>(null);
+  const isAuth = useSelector(selectIsAuth);
+
+  const handleLogOut = () => {
+    dispatch(logOut())
+  }
+
+  const userMenuList = [
+    { name: 'Админка', link: '/admin' },
+    { name: 'Выход', func: () => {handleLogOut()} },
+  ];
 
 
   const handleToggleMenu = () => {
@@ -42,7 +47,7 @@ const Header: FC = () => {
   const handleChangeTheme = () => {
     setTheme(theme === Theme.WHITE ? Theme.DARK : Theme.WHITE);
   }
-
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const _event = event as ClickOutside;
