@@ -34,18 +34,6 @@ const Home: FC = () => {
   
   const order = useSelector((state: RootState) => state.filter.order)
 
-  const getGoods = async () => {
-    dispatch(
-      fetchGoods({
-        category,
-        sortFilter,
-        searchValue,
-        order
-      }),
-    );
-  };
-  
-
   const subtitleName = (num: number) => {
     if (num % 10 === 1) {
       return 'товар';
@@ -75,9 +63,24 @@ const Home: FC = () => {
   }, []);
 
   useEffect(() => {
+    let active = true;
+    const getGoods = async () => {
+      if (active) {
+        dispatch(
+          fetchGoods({
+            category,
+            sortFilter,
+            searchValue,
+            order
+          }),
+        );
+      }
+    };
     getGoods();
-
     isSearch.current = false;
+    return () => {
+      active = false;
+    }
   }, [sortFilter, type, search, activePage, order]);
 
   useEffect(() => {
@@ -120,6 +123,14 @@ const Home: FC = () => {
           <Aside />
           <div className="product-content">
             <Filter />
+            {status === Status.SUCCESS && !sliceItems.length ? <div className="cart cart--empty">
+              <div className="cart__inner">
+                <h2 className="title">Произошла ошибка😕</h2>
+                <p className="cart__text">
+                  К сожалению, по запросу "{search}" ничего не найдено.
+                </p>
+              </div>
+            </div> :
             <div className="product-content__items">
               {status === Status.LOADING
                 ? [...new Array(6)].map((_, index) => (
@@ -128,7 +139,7 @@ const Home: FC = () => {
                     </div>
                   ))
                 : sliceItems.map((product: {title: string, imageUrl: string, _id: string, price: number, category: number}) => <ProductItem {...product} key={product._id} admin={false} />)}
-            </div>
+            </div>}
             {NumberOfPages > 1 && status === Status.SUCCESS && (
               <Pagination activePage={activePage} NumberOfPages={NumberOfPages} />
             )}

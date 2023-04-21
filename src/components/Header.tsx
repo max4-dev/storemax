@@ -10,7 +10,7 @@ import cartIcon from '../assets/images/icons/cart.svg';
 import { selectTotalCount } from '../redux/cart/selectors';
 import { useTheme } from '../hooks/use-theme';
 import { logOut, selectIsAuth } from '../redux/auth/slice';
-import { useAppDispatch } from '../redux/store';
+import { RootState, useAppDispatch } from '../redux/store';
 
 enum Theme {
   WHITE = 'white',
@@ -29,13 +29,15 @@ const Header: FC = () => {
   const {theme, setTheme} = useTheme();
   const filterRef = useRef<HTMLDivElement>(null);
   const isAuth = useSelector(selectIsAuth);
+  const {data} = useSelector((state: RootState) => state.auth);
+  
 
   const handleLogOut = () => {
     dispatch(logOut())
   }
 
   const userMenuList = [
-    { name: 'Админка', link: '/admin' },
+    { name: 'Админка', link: '/admin', type:'admin' },
     { name: 'Выход', func: () => {handleLogOut()} },
   ];
 
@@ -86,16 +88,16 @@ const Header: FC = () => {
             <li className="sign__item user">
               <div onClick={handleChangeSelect} className="user__info" ref={filterRef}>
                 <h6 className="user__name">
-                  Max
+                  {data.fullName}
                 </h6>
                 <p className="user__email">
-                  {'maksim.bogomyakov@gmail.com'.substring(0, 15) + '...'}
+                  {data.email.substring(0, 15) + '...'}
                 </p>
               </div>
               <div className="popup-filter">
               {openMenu && <ul className="popup-filter__list">
                 {userMenuList.map((item) => (
-                  <li
+                  item.type === 'admin' && !data.admin ? '' :<li
                     className={
                       'popup-filter__item'
                     }

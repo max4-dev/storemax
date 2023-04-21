@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchUserData, getUserData } from './asyncActions';
+import { fetchRegister, fetchUserData, getUserData } from './asyncActions';
 import { AuthSliceState, Status } from './types';
 
 const initialState: AuthSliceState = {
@@ -37,11 +37,26 @@ const authSlice = createSlice({
       state.status = Status.LOADING;
     })
 
-    builder.addCase(getUserData.fulfilled, (state, action) => {
+    builder.addCase(getUserData.fulfilled, (state) => {
       state.status = Status.SUCCESS;
     })
 
     builder.addCase(getUserData.rejected, (state) => {
+      state.status = Status.ERROR;
+    })
+    
+    //register
+    builder.addCase(fetchRegister.pending, (state) => {
+      state.status = Status.LOADING;
+    })
+
+    builder.addCase(fetchRegister.fulfilled, (state, action) => {
+      state.data = action.payload;
+      state.status = Status.SUCCESS;
+    })
+
+    builder.addCase(fetchRegister.rejected, (state) => {
+      state.data = null;
       state.status = Status.ERROR;
     })
   }

@@ -466,6 +466,12 @@
   &__password-input{
     padding-right: 60px;
   }
+  &__btn[disabled]{
+    transition: all .3s;
+    background-color: var(--disabled-color);
+    border-color: var(--disabled-color);
+    cursor: default;
+  }
 }
 
 .cart{
@@ -791,7 +797,7 @@
     line-height: 19px;
   }
   .popup-filter{
-    bottom: -85px;
+    top: 60px;
     left: 0;
     right: 0;
   }

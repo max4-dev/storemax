@@ -12,7 +12,6 @@ export enum InputTypes {
 
 const Login: FC = () => {
   const dispatch = useAppDispatch();
-  const passwordRef = useRef<HTMLInputElement | null>(null);
   const [show, setShow] = useState(false);
   const [type, setType] = useState(InputTypes.PASSWORD);
   const navigate = useNavigate();
@@ -61,7 +60,6 @@ const Login: FC = () => {
           </label>
           <label className="login__label login__password">
             Пароль
-             {/*ref={passwordRef} */}
             <input className={"login__input login__password-input" + (errors.password?.message ? ' login__input--err' : '')} type={type} {...register('password', {required: 'Укажите пароль'})} />
             <button onClick={handleShow} className="login__password-btn">{
             show ? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-eye-slash" viewBox="0 0 16 16">

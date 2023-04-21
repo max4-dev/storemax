@@ -10,4 +10,10 @@ export interface LoginParams {
   password: string;
 }
 
+export interface RegisterParams {
+  email: string;
+  fullName: string;
+  password: string;
+}
+
 export {Status}

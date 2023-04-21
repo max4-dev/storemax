@@ -13,3 +13,9 @@ export const getUserData = createAsyncThunk('auth/getUserData', async () => {
 
   return data;
 });
+
+export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (params: LoginParams) => {
+  const { data } = await axios.post('/auth/register', params);
+
+  return data;
+});
