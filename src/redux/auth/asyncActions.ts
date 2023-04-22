@@ -4,18 +4,15 @@ import { LoginParams } from "./types";
 
 export const fetchUserData = createAsyncThunk('auth/fetchUserData', async (params: LoginParams) => {
   const { data } = await axios.post('/auth/login', params);
-
   return data;
 });
 
-export const getUserData = createAsyncThunk('auth/getUserData', async () => {
+export const fetchAuthMe = createAsyncThunk('auth/fetchAuthMe', async () => {
   const { data } = await axios.get('/auth/me');
-
   return data;
 });
 
 export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (params: LoginParams) => {
   const { data } = await axios.post('/auth/register', params);
-
   return data;
 });

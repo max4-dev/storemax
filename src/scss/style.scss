@@ -314,6 +314,12 @@
     padding: 8px 15px;
     cursor: pointer;
     transition: all .3s;
+    button{
+      cursor: pointer;
+    }
+    a{
+      display: block;
+    }
   }
   &__item:hover{
     background-color: var(--bg-accent);

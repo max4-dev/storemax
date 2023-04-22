@@ -33,7 +33,8 @@ const Header: FC = () => {
   
 
   const handleLogOut = () => {
-    dispatch(logOut())
+    dispatch(logOut());
+    window.localStorage.removeItem('token');
   }
 
   const userMenuList = [
@@ -97,12 +98,12 @@ const Header: FC = () => {
               <div className="popup-filter">
               {openMenu && <ul className="popup-filter__list">
                 {userMenuList.map((item) => (
-                  item.type === 'admin' && !data.admin ? '' :<li
-                    className={
-                      'popup-filter__item'
-                    }
+                  item.type === 'admin' && !data.admin ? '' : 
+                  <li
+                    className={'popup-filter__item'}
                     key={item.name}>
-                      {item.link ? <Link to={item.link}>{item.name}</Link> : <button onClick={item.func}>{item.name}</button>}
+                      {item.link ? 
+                      <Link to={item.link}>{item.name}</Link> : <button onClick={item.func}>{item.name}</button>}
                   </li>
                 ))}
               </ul>}

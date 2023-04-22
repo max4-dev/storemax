@@ -13,7 +13,7 @@ import { sortList } from '../components/Filter';
 import {Filter, ProductItem, Skeleton, Pagination} from '../components';
 import AdminAside from '../components/AdminAside';
 import { selectIsAuth } from '../redux/auth/slice';
-import { getUserData } from '../redux/auth/asyncActions';
+import { fetchAuthMe } from '../redux/auth/asyncActions';
 
 const Home: FC = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const Home: FC = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const data = await dispatch(getUserData());
+      const data = await dispatch(fetchAuthMe());
       if (!isAuth || !data.payload.admin) {
         navigate('/')
       }

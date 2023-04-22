@@ -14,6 +14,7 @@ const Login: FC = () => {
   const dispatch = useAppDispatch();
   const [show, setShow] = useState(false);
   const [type, setType] = useState(InputTypes.PASSWORD);
+  const [check, setCheck] = useState(true);
   const navigate = useNavigate();
 
   const {register, handleSubmit, setError, formState: {errors, isValid}} = useForm({
@@ -30,7 +31,9 @@ const Login: FC = () => {
       return alert('Не удалось авторизоваться');
     }
     if ('token' in data.payload) {
-      window.localStorage.setItem('token', data.payload.token);
+      if (check) {
+        window.localStorage.setItem('token', data.payload.token);
+      }
       navigate('/')
     }
   }
@@ -72,7 +75,7 @@ const Login: FC = () => {
           </label>
           <span className="login__err-text">{errors.password?.message}</span>
           <label className="login__checkbox-label">
-            <input className="login__checkbox" type="checkbox" />
+            <input className="login__checkbox" type="checkbox" onChange={() => setCheck(prevState => !prevState)} checked={check} />
             <span></span>
             <p className="login__text">Запомнить меня</p>
           </label>

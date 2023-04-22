@@ -123,7 +123,7 @@ const Home: FC = () => {
           <Aside />
           <div className="product-content">
             <Filter />
-            {status === Status.SUCCESS && !sliceItems.length ? <div className="cart cart--empty">
+            {status === Status.SUCCESS && !sliceItems.length && search ? <div className="cart cart--empty">
               <div className="cart__inner">
                 <h2 className="title">Произошла ошибка😕</h2>
                 <p className="cart__text">

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchRegister, fetchUserData, getUserData } from './asyncActions';
+import { fetchRegister, fetchUserData, fetchAuthMe } from './asyncActions';
 import { AuthSliceState, Status } from './types';
+import { RootState } from '../store';
 
 const initialState: AuthSliceState = {
   data: null,
@@ -33,20 +34,22 @@ const authSlice = createSlice({
     })
 
     //get user
-    builder.addCase(getUserData.pending, (state) => {
+    builder.addCase(fetchAuthMe.pending, (state) => {
       state.status = Status.LOADING;
     })
 
-    builder.addCase(getUserData.fulfilled, (state) => {
+    builder.addCase(fetchAuthMe.fulfilled, (state, action) => {
+      state.data = action.payload;
       state.status = Status.SUCCESS;
     })
 
-    builder.addCase(getUserData.rejected, (state) => {
+    builder.addCase(fetchAuthMe.rejected, (state) => {
       state.status = Status.ERROR;
     })
     
     //register
     builder.addCase(fetchRegister.pending, (state) => {
+      state.data = null;
       state.status = Status.LOADING;
     })
 
@@ -64,6 +67,6 @@ const authSlice = createSlice({
 
 export const {logOut} = authSlice.actions;
 
-export const selectIsAuth = (state: any) => Boolean(state.auth.data)
+export const selectIsAuth = (state: RootState) => Boolean(state.auth.data)
 
 export default authSlice.reducer;
