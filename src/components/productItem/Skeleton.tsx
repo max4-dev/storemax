@@ -1,9 +1,6 @@
 import {FC} from 'react';
 import ContentLoader from 'react-content-loader';
 
-console.log(window.localStorage.getItem('app-theme'));
-
-
 const Skeleton: FC = (props) => (
   <ContentLoader
     speed={2}

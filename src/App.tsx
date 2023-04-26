@@ -4,8 +4,6 @@ import './scss/style.scss';
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import loadable from '@loadable/component';
-import Login from './pages/Login';
-import Register from './pages/Register';
 import { useAppDispatch } from './redux/store';
 import { useSelector } from 'react-redux';
 import { selectIsAuth } from './redux/auth/slice';
@@ -15,6 +13,9 @@ const Cart = loadable(() => import(/* webpackChunkName: "Cart" */'./pages/Cart')
 const FullProduct = loadable(() => import(/* webpackChunkName: "FullProduct" */'./pages/FullProduct'));
 const NotFound = loadable(() => import(/* webpackChunkName: "NotFound" */'./pages/NotFound'));
 const Admin = loadable(() => import(/* webpackChunkName: "Admin" */'./pages/Admin'));
+const Login = loadable(() => import(/* webpackChunkName: "Login" */'./pages/Login'));
+const Register = loadable(() => import(/* webpackChunkName: "Register" */'./pages/Register'));
+const CreateGood = loadable(() => import(/* webpackChunkName: "CreateGood" */'./pages/CreateGood'));
 
 function App() {
   const dispatch = useAppDispatch();
@@ -33,6 +34,7 @@ function App() {
         <Route path="product/:productId" element={<FullProduct />} />
         <Route path="cart" element={<Cart />} />
         <Route path="admin" element={<Admin />} />
+        <Route path="create" element={<CreateGood />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

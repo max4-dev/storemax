@@ -12,3 +12,9 @@ export const fetchGoods = createAsyncThunk<GoodItem[], FetchGoodsProps>('goods/f
   // );
   return data;
 });
+
+export const fetchCreateGoods = createAsyncThunk<GoodItem[], FetchGoodsProps>('goods/fetchCreateGoods', async (params) => {
+  const { data } = await axios.post<GoodItem[]>(`/goods`, params);
+
+  return data;
+});

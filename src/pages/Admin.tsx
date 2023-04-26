@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { RootState, useAppDispatch } from '../redux/store';
 import { fetchGoods } from '../redux/goods/asyncActions';
 import { FiltersProps } from '../redux/filter/types';
-import { setFilters } from '../redux/filter/slice';
+import { setFilter, setFilters } from '../redux/filter/slice';
 import { Status } from '../redux/goods/types';
 
 import { sortList } from '../components/Filter';
@@ -19,6 +19,10 @@ const Home: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isAuth = useSelector(selectIsAuth);
+
+  useEffect(() => {
+    dispatch(setFilter(0))
+  }, [])
 
   useEffect(() => {
     const getUser = async () => {

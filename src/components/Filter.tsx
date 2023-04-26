@@ -12,7 +12,7 @@ export const sortList = [
   { name: 'Популярность', sortProperty: SortPropertyEnum.RATING },
 ];
 
-type ClickOutside = MouseEvent & {
+export type ClickOutside = MouseEvent & {
   composedPath: () => Node[]
 }
 
