@@ -1,9 +1,12 @@
-import {FC} from 'react';
+import {FC, MouseEventHandler} from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addProduct } from '../../redux/cart/slice';
 import { GoodItem } from '../../redux/goods/types';
 import { RootState, useAppDispatch } from '../../redux/store';
+import { fetchDeleteGoods } from '../../redux/goods/asyncActions';
+import { setActivePage } from '../../redux/filter/slice';
+import { setFilter } from '../../redux/filter/slice';
 
 type ProductItemProps = {
   title: string;
@@ -32,6 +35,10 @@ const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, _id, price, catego
     dispatch(addProduct(item));
   };
 
+  const handleDelete = async (_id: string) => {
+    dispatch(fetchDeleteGoods(_id));
+  }
+
   return (
     <div className="product-content__item-wrapper">
       <div className="product-content__item" key={_id}>
@@ -49,7 +56,7 @@ const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, _id, price, catego
             <button className="product-content__link">
               Редактировать
             </button>
-            <button className="product-content__delete">
+            <button onClick={() => handleDelete(_id)} className="product-content__delete">
               Удалить
             </button>
           </div> : <div className="product-content__badges">

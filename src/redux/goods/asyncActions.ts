@@ -18,3 +18,9 @@ export const fetchCreateGoods = createAsyncThunk<GoodItem[], FetchGoodsProps>('g
 
   return data;
 });
+
+export const fetchDeleteGoods = createAsyncThunk('goods/fetchDeleteGoods', async (_id: string) => {
+  const { data } = await axios.delete(`/goods/${_id}`);
+
+  return data;
+});

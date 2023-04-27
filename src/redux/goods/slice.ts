@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchGoods } from './asyncActions';
+import { fetchDeleteGoods, fetchGoods } from './asyncActions';
 import { GoodItem, GoodsSliceState, Status } from './types';
 
 const initialState: GoodsSliceState = {
@@ -29,6 +29,11 @@ const goodsSlice = createSlice({
     builder.addCase(fetchGoods.rejected, (state) => {
       state.items = [];
       state.status = Status.ERROR;
+    })
+
+    // delete
+    builder.addCase(fetchDeleteGoods.pending, (state, action) => {
+      state.items = state.items.filter((obj) => obj._id !== action.meta.arg)
     })
   }
 });
