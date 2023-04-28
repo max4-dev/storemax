@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { RootState, useAppDispatch } from '../redux/store';
 import { fetchGoods } from '../redux/goods/asyncActions';
 import { FiltersProps } from '../redux/filter/types';
-import { setFilter, setFilters } from '../redux/filter/slice';
+import { setFilter, setFilters, setActivePage } from '../redux/filter/slice';
 import { Status } from '../redux/goods/types';
 
 import { sortList } from '../components/Filter';
@@ -43,13 +43,8 @@ const Home: FC = () => {
   const category = type > 0 ? `category=${type}` : '';
   const sortFilter = sort.sortProperty;
   const searchValue = search ? `search=${search}` : '';
-
-  const pageSize = 4;
-  const startIndex = (activePage - 1) * pageSize;
-  const NumberOfPages = Math.ceil(items.length / pageSize);
-  const sliceItems = items.slice(startIndex, pageSize * activePage);
   
-  const order = useSelector((state: RootState) => state.filter.order)
+  const order = useSelector((state: RootState) => state.filter.order);
 
   const getGoods = async () => {
     dispatch(
@@ -143,11 +138,8 @@ const Home: FC = () => {
                       <Skeleton />
                     </div>
                   ))
-                : sliceItems.map((product: {title: string, imageUrl: string, _id: string, price: number, category: number}) => <ProductItem {...product} key={product._id} admin={true} />)}
+                : items.map((product: {title: string, imageUrl: string, _id: string, price: number, category: number}) => <ProductItem {...product} key={product._id} admin={true} />)}
             </div>
-            {NumberOfPages > 1 && status === Status.SUCCESS && (
-              <Pagination activePage={activePage} NumberOfPages={NumberOfPages} />
-            )}
           </div>
         </div>
       </div>

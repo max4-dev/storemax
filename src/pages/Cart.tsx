@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import {FC, MouseEvent} from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { CartItem } from '../components/';
@@ -9,12 +9,20 @@ import { RootState, useAppDispatch } from '../redux/store';
 const Cart: FC = () => {
   const dispatch = useAppDispatch();
   const items = useSelector((state: RootState) => state.cart.items);
+  const goods = useSelector((state: RootState) => state.goods.items);
   const totalCount = useSelector(selectTotalCount);
   const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
-
+  
   const handleClear = () => {
     dispatch(clearProducts());
   };
+
+  const handlePay = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log(goods);
+    // items.map((item) => )
+    
+  }
 
   if (items.length < 1) {
     return (
@@ -62,7 +70,7 @@ const Cart: FC = () => {
             <Link to="/" className="cart-buttons__back">
               Вернуться назад
             </Link>
-            <button className="cart-buttons__pay">Оплатить</button>
+            <button onClick={handlePay} className="cart-buttons__pay">Оплатить</button>
           </div>
         </div>
       </div>

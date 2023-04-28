@@ -836,6 +836,14 @@
     height: 46px;
     color: var(--text-color);
   }
+  &__input[type=number]::-webkit-outer-spin-button,
+  &__input[type=number]::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  &__input[type=number] {
+    -webkit-appearance: none;
+  }
   &__textarea{
     resize: none;
     width: 100%;

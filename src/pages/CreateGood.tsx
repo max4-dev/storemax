@@ -29,7 +29,7 @@ const CreateGood: FC = () => {
   const dispatch = useAppDispatch();
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(1);
 
   const [openCategory, setOpenCategory] = useState(false);
   const [category, setCategory] = useState(1);
@@ -87,10 +87,8 @@ const CreateGood: FC = () => {
       title, text, category, rating, price
     }
     try {
-      // dispatch(fetchCreateGoods(good))
       const {data} = await axios.post('/goods', good);
-      console.log(data);
-      
+      navigate('/admin')   
     } catch (err) {
       console.log(err);
     }
@@ -107,7 +105,7 @@ const CreateGood: FC = () => {
             </label>
             <label className="create__item">
               <p className="create__name">Цена</p>
-              <input value={price} onChange={(e) => setPrice(Number(e.target.value))} className="create__input" type="number" />
+              <input min="1" value={price} onChange={(e) => setPrice(Number(e.target.value))} className="create__input" type="number" />
             </label>
             <label className="create__item">
               <p className="create__name">Категория</p>
