@@ -54,9 +54,9 @@ const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, _id, price, catego
           <h5 className="product-content__title">{title}</h5>
           <p className="product-content__text">ID: {_id}</p>
           {admin ? <div className="product-content__badges">
-            <button className="product-content__link">
+            <Link className="product-content__link" to={`/product/${_id}/edit`}>
               Редактировать
-            </button>
+            </Link>
             <button onClick={() => handleDelete(_id)} className="product-content__delete">
               Удалить
             </button>

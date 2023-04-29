@@ -835,6 +835,7 @@
     border-radius: 10px;
     height: 46px;
     color: var(--text-color);
+    padding: 10px 15px;
   }
   &__input[type=number]::-webkit-outer-spin-button,
   &__input[type=number]::-webkit-inner-spin-button{
@@ -854,6 +855,10 @@
   }
   &__button + .create__button{
     margin-left: 15px;
+  }
+  &__img{
+    width: 200px;
+    margin: 15px 0;
   }
 
   .product-content__filter{
