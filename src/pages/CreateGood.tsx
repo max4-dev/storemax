@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { selectIsAuth } from '../redux/auth/slice';
@@ -30,6 +30,8 @@ const CreateGood: FC = () => {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [price, setPrice] = useState(1);
+  const [imageUrl, setImageUrl] = useState('');
+  const inputFileRef = useRef<HTMLInputElement>(null);
 
   const [openCategory, setOpenCategory] = useState(false);
   const [category, setCategory] = useState(1);
@@ -81,10 +83,29 @@ const CreateGood: FC = () => {
     setRating(item.name)
   }
 
+  const handleChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
+    try {
+      const formData = new FormData();
+      const file = event?.target?.files?.[0]
+      if (file) {
+        formData.append('image', file);
+      }
+      const {data} = await axios.post('/upload', formData);
+      setImageUrl('http://localhost:4444' + data.url);
+    } catch (err) {
+      console.log(err);
+      alert('Ошибка при загрузке файла');
+    }
+  }
+
+  const handleRemoveFile = () => {
+    setImageUrl('');
+  }
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const good = {
-      title, text, category, rating, price
+      title, text, category, rating, price, imageUrl
     }
     try {
       const {data} = await axios.post('/goods', good);
@@ -99,6 +120,15 @@ const CreateGood: FC = () => {
       <div className="container">
         <div className="create__inner">
           <form onSubmit={handleSubmit} className="create__form">
+            <label className="create__item">
+              <p className="create__name">Изображение</p>
+              <button onClick={() => inputFileRef?.current?.click()} className="create__button btn" type='button'>Загрузить изображение</button>
+              {imageUrl && <>
+              <button onClick={handleRemoveFile} className="create__button btn-noactive" type='button'>Удалить изображение</button>
+              <img src={imageUrl} alt="" />
+              </>}
+              <input ref={inputFileRef} onChange={handleChangeFile} type="file" hidden/>
+            </label>
             <label className="create__item">
               <p className="create__name">Название товара</p>
               <input value={title} onChange={(e) => setTitle(e.target.value)} className="create__input" type="text" />
@@ -158,10 +188,6 @@ const CreateGood: FC = () => {
             <label className="create__item">
               <p className="create__name">Описание</p>
               <textarea value={text} onChange={(e) => setText(e.target.value)} className="create__input create__textarea"></textarea>
-            </label>
-            <label className="create__item">
-              <p className="create__name">Изображение</p>
-              <input onClick={(e) => e.preventDefault()} className="create__input" type="image" />
             </label>
             <button className="btn create__btn" type='submit'>Создать</button>
           </form>

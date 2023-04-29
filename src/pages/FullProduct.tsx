@@ -66,7 +66,7 @@ const FullProduct: FC = () => {
         <div className="product-page__inner">
           <div className="product-page__content">
             <div className={`product-page__img-box product-page__img-box--${product.category}`}>
-              <img className="product-page__img" src={`../${product.imageUrl}`} />
+              <img className="product-page__img" src={product.imageUrl} />
             </div>
             <div className="product-page__info">
               <p className="product-page__id">ID: {product._id}</p>

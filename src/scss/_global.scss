@@ -67,3 +67,15 @@ body{
   border: 2px solid var(--accent-color);
   cursor: pointer;
 }
+
+.btn-noactive {
+  padding: 5px 25px;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 26px;
+  color: var(--accent-color);
+  background-color: transparent;
+  border-radius: 10px;
+  border: 2px solid var(--accent-color);
+  cursor: pointer;
+}

@@ -23,6 +23,7 @@ const ProductItem: FC<ProductItemProps> = ({ title, imageUrl, _id, price, catego
   const cartItem = items.find((item: {_id: string}) => item._id === _id);
 
   const addedCount = cartItem ? cartItem.count : 0;
+  
 
   const handleAddProduct = () => {
     const item = {
