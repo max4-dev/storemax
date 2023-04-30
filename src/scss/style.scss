@@ -378,6 +378,18 @@
   }
 }
 
+.popup-filter__list--usernav {
+  .popup-filter__item{
+    padding: 0;
+    a, button{
+      text-align: start;
+      display: block;
+      width: 100%;
+      padding: 8px 15px;
+    }
+  }
+}
+
 .login{
   max-width: 660px;
   width: 100%;
@@ -866,6 +878,10 @@
   }
   .product-content__filter-btn{
     width: auto;
+    padding: 0;
+    span{
+      padding: 7px 23px 7px 18px;
+    }
   }
   .popup-filter{
     left: 0;
@@ -876,6 +892,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+  }
+}
+
+.login-wrapper{
+  position: relative;
+}
+
+.error-popup{
+  transition: all .3s;
+  max-width: 550px;
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  left: 0;
+  top: 25px;
+  .btn{
+    margin-top: 15px;
   }
 }
 

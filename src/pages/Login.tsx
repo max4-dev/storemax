@@ -4,6 +4,7 @@ import { fetchUserData } from "../redux/auth/asyncActions";
 import { LoginParams } from "../redux/auth/types";
 import { useAppDispatch } from "../redux/store";
 import { useNavigate } from "react-router-dom";
+import ErrorPopup from "../components/ErrorPopup";
 
 export enum InputTypes {
   PASSWORD = 'password',
@@ -15,6 +16,7 @@ const Login: FC = () => {
   const [show, setShow] = useState(false);
   const [type, setType] = useState(InputTypes.PASSWORD);
   const [check, setCheck] = useState(true);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
   const {register, handleSubmit, setError, formState: {errors, isValid}} = useForm({
@@ -28,7 +30,7 @@ const Login: FC = () => {
   const onSubmit = async (values: LoginParams) => {
     const data = await dispatch(fetchUserData(values));
     if (!data.payload) {
-      return alert('Не удалось авторизоваться');
+      return setOpen(true);
     }
     if ('token' in data.payload) {
       if (check) {
@@ -52,7 +54,8 @@ const Login: FC = () => {
   }
 
   return ( 
-    <>
+    <div className="login-wrapper">
+      <ErrorPopup text={'Неверный логин и/или пароль'} open={open} setOpen={setOpen} />
       <section className="login">
         <h2 className="title login__title">Вход</h2>
         <form className="login__form" onSubmit={handleSubmit(onSubmit)}>
@@ -82,7 +85,7 @@ const Login: FC = () => {
           <button className="login__btn btn" type="submit">Войти</button>
         </form>
       </section>
-    </>
+    </div>
    );
 }
  

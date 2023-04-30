@@ -6,12 +6,7 @@ import { fetchAuthMe } from '../redux/auth/asyncActions';
 import { useAppDispatch } from '../redux/store';
 import { ClickOutside } from '../components/Filter';
 import axios from '../axios';
-
-const categoryList = [
-  {name: 1},
-  {name: 2},
-  {name: 3},
-];
+import { typeList } from '../components/Aside';
 
 const ratingList = [
   {name: 1},
@@ -88,9 +83,9 @@ const CreateGood: FC = () => {
     getUser();
   }, [isAuth]);
 
-  const handleChangeCategory = (item : {name: number}) => {
+  const handleChangeCategory = (item : {name: string}, index: number) => {
     setOpenCategory(false);
-    setCategory(item.name)
+    setCategory(index)
   }
 
   const handleChangeRating = (item : {name: number}) => {
@@ -127,7 +122,6 @@ const CreateGood: FC = () => {
       ? await axios.patch(`/goods/${productId}`, good)
       : await axios.post('/goods', good);
       const _id = isEditable ? productId : data._id;
-      console.log(good);
       
       navigate(`/product/${_id}`);
     } catch (err) {
@@ -135,6 +129,7 @@ const CreateGood: FC = () => {
       console.log(err);
     }
   }
+  
   
   return (
     <section className="create">
@@ -162,17 +157,17 @@ const CreateGood: FC = () => {
               <p className="create__name">Категория</p>
               <div ref={categoryRef} className="product-content__filter">
                 <button onClick={(e) => e.preventDefault()} className="product-content__filter-btn">
-                  <span onClick={() => setOpenCategory(!openCategory)}>{category}</span>
+                  <span onClick={() => setOpenCategory(!openCategory)}>{typeList[category].name}</span>
                 </button>
                 {openCategory && (
                   <div className="popup-filter">
                     <ul className="popup-filter__list">
-                      {categoryList.map((item) => (
-                        <li
+                      {typeList.map((item, index) => (
+                        index !== 0 && <li
                           className={
-                            'popup-filter__item' + (item.name === category ? ' popup-filter__item--active' : '')
+                            'popup-filter__item' + (index === Number(category) ? ' popup-filter__item--active' : '')
                           }
-                          onClick={() => handleChangeCategory(item)}
+                          onClick={() => handleChangeCategory(item, index)}
                           key={item.name}>
                           {item.name}
                         </li>

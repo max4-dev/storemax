@@ -82,7 +82,7 @@ const Home: FC = () => {
       active = false;
     }
   }, [sortFilter, type, search, activePage, order]);
-
+  
   useEffect(() => {
     if (isMounted.current) {
       const querryString = qs.stringify({
@@ -127,7 +127,7 @@ const Home: FC = () => {
               <div className="cart__inner">
                 <h2 className="title">Произошла ошибка😕</h2>
                 <p className="cart__text">
-                  К сожалению, по запросу "{search}" ничего не найдено.
+                  К сожалению, по запросу "{search.substring(0, 15) + (search.length > 15 ? '...' : '')}" ничего не найдено.
                 </p>
               </div>
             </div> :

@@ -5,12 +5,14 @@ import { useAppDispatch } from '../redux/store';
 import { fetchRegister } from '../redux/auth/asyncActions';
 import { useNavigate } from 'react-router-dom';
 import { RegisterParams } from '../redux/auth/types';
+import ErrorPopup from '../components/ErrorPopup';
 
 const Register: FC = () => {
   const dispatch = useAppDispatch();
   const [check, setCheck] = useState(false);
   const [type, setType] = useState(InputTypes.PASSWORD);
   const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const {register, handleSubmit, setError, formState: {errors, isValid}} = useForm({
     defaultValues: {
@@ -35,7 +37,7 @@ const Register: FC = () => {
   const onSubmit = async (values: RegisterParams) => {
     const data = await dispatch(fetchRegister(values));
     if (!data.payload) {
-      return alert('Не удалось зарегистрироваться');
+      return setOpen(true);
     }
     if ('token' in data.payload) {
       window.localStorage.setItem('token', data.payload.token);
@@ -46,7 +48,8 @@ const Register: FC = () => {
   
 
   return ( 
-    <>
+    <div className='login-wrapper'>
+      <ErrorPopup text={'Не удалось зарегистрироваться'} open={open} setOpen={setOpen} />
     <section className="login">
       <h2 className="title login__title">Регистрация</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="login__form">
@@ -80,7 +83,7 @@ const Register: FC = () => {
         </label>
         <button className="login__btn btn" type="submit" disabled={!check}>Зарегистрироваться</button>
       </form>
-    </section></>
+    </section></div>
    );
 }
  

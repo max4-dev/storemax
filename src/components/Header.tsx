@@ -55,6 +55,7 @@ const Header: FC = () => {
     const handleClickOutside = (event: MouseEvent) => {
       const _event = event as ClickOutside;
       const path = _event.composedPath();
+      
       if (filterRef.current && !path.includes(filterRef.current) && !openMenu) {
         setOpenMenu(false);
       }
@@ -96,7 +97,7 @@ const Header: FC = () => {
                 </p>
               </div>
               <div className="popup-filter">
-              {openMenu && <ul className="popup-filter__list">
+              {openMenu && <ul className="popup-filter__list popup-filter__list--usernav">
                 {userMenuList.map((item) => (
                   item.type === 'admin' && !data.admin ? '' : 
                   <li
