@@ -1,6 +1,6 @@
 import {FC, MouseEvent, useState} from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CartItem } from '../components/';
 import { selectTotalCount } from '../redux/cart/selectors';
 import { clearProducts } from '../redux/cart/slice';
@@ -12,6 +12,7 @@ import { GoodItem } from '../redux/goods/types';
 
 const Cart: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const items = useSelector((state: RootState) => state.cart.items);
   const totalCount = useSelector(selectTotalCount);
   const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
@@ -27,19 +28,23 @@ const Cart: FC = () => {
   const handlePay = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const {data} = await axios.get('/goods');
-    items.forEach((item) => {
+    items.forEach((item) => {    
       const foundItem = data.find((dataItem: { _id: string; }) => dataItem._id === item._id);
-    if (!foundItem) {
-      deletedList.push(item);
-    }
-  });
-
+      if (!foundItem) {        
+        deletedList.push(item);
+      }
+    });
+    
     if (deletedList.length) {
       setTitle(deletedList?.[0]?.title)
       setOpen(true);
+      window.scrollTo(0, 0);
+    } else{
+      navigate('/pay');
     }
     return deletedList = [];
   }
+
 
   if (items.length < 1) {
     return (
@@ -62,12 +67,11 @@ const Cart: FC = () => {
 
   return (
     <>
-      {title && <ErrorPopup text={`К сожалению товара "${title}" уже нет в нашем магазине`} open={open} setOpen={setOpen} />
-      }
       <section className="cart">
         <div className="container container-s">
           <div className="cart__inner">
             <div className="cart__top">
+              {title && <ErrorPopup text={`К сожалению товара "${title}" уже нет в нашем магазине`} open={open} setOpen={setOpen} />}
               <h2 className="title cart__title">Корзина</h2>
               <button className="cart__clear" onClick={handleClear}>
                 Очистить корзину

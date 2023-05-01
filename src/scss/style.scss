@@ -63,7 +63,7 @@
     border: none;
     width: 21px;
     height: 21px;
-    z-index: 100;
+    z-index: 30;
     right: 85px;
     opacity: .7;
     cursor: pointer;
@@ -494,7 +494,9 @@
 
 .cart{
   padding: 100px 0;
+  color: var(--text-color);
   &__top{
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -900,11 +902,31 @@
   position: relative;
 }
 
+.error-page{
+  text-align: center;
+  &__inner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  
+  }
+  &__title{
+    font-size: 41px;
+    line-height: 53px;
+    margin-bottom: 15px;
+  }
+  &__text{
+    font-size: 19px;
+    max-width: 500px;
+    margin-bottom: 15px;
+  }
+}
+
 .error-popup{
   transition: all .3s;
   max-width: 550px;
   position: absolute;
-  z-index: 3;
+  z-index: 10;
   right: 0;
   left: 0;
   top: 25px;

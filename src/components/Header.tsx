@@ -90,16 +90,16 @@ const Header: FC = () => {
             <li className="sign__item user">
               <div onClick={handleChangeSelect} className="user__info" ref={filterRef}>
                 <h6 className="user__name">
-                  {data.fullName}
+                  {data?.fullName}
                 </h6>
                 <p className="user__email">
-                  {data.email.substring(0, 15) + (data.email.length > 15 ? '...' : '')}
+                  {data?.email.substring(0, 15) + (data?.email?.length ?? 0 > 15 ? '...' : '')}
                 </p>
               </div>
               <div className="popup-filter">
               {openMenu && <ul className="popup-filter__list popup-filter__list--usernav">
                 {userMenuList.map((item) => (
-                  item.type === 'admin' && !data.admin ? '' : 
+                  item.type === 'admin' && !data?.admin ? '' : 
                   <li
                     className={'popup-filter__item'}
                     key={item.name}>

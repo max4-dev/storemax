@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
 import {  useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { selectIsAuth } from '../redux/auth/slice';
@@ -7,6 +7,7 @@ import { useAppDispatch } from '../redux/store';
 import { ClickOutside } from '../components/Filter';
 import axios from '../axios';
 import { typeList } from '../components/Aside';
+import ErrorPopup from '../components/ErrorPopup';
 
 const ratingList = [
   {name: 1},
@@ -25,6 +26,7 @@ const CreateGood: FC = () => {
   const [text, setText] = useState('');
   const [price, setPrice] = useState(1);
   const [imageUrl, setImageUrl] = useState('');
+  const [open, setOpen] = useState(false);
   const inputFileRef = useRef<HTMLInputElement>(null);
 
   const {productId} = useParams();
@@ -112,7 +114,7 @@ const CreateGood: FC = () => {
     setImageUrl('');
   }
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const good = {
       title, text, category, rating, price, imageUrl
@@ -125,91 +127,95 @@ const CreateGood: FC = () => {
       
       navigate(`/product/${_id}`);
     } catch (err) {
-      alert('Не удалось сохранить товар')
+      setOpen(true);
+      window.scrollTo(0, 0)
       console.log(err);
     }
   }
   
   
   return (
-    <section className="create">
-      <div className="container">
-        <div className="create__inner">
-          <form onSubmit={handleSubmit} className="create__form">
-            <label className="create__item">
-              <p className="create__name">Изображение</p>
-              <button onClick={() => inputFileRef?.current?.click()} className="create__button btn" type='button'>Загрузить изображение</button>
-              {imageUrl && <>
-              <button onClick={handleRemoveFile} className="create__button btn-noactive" type='button'>Удалить изображение</button>
-              <img className='create__img' src={imageUrl} alt="" />
-              </>}
-              <input ref={inputFileRef} onChange={handleChangeFile} type="file" hidden/>
-            </label>
-            <label className="create__item">
-              <p className="create__name">Название товара</p>
-              <input value={title} onChange={(e) => setTitle(e.target.value)} className="create__input" type="text" />
-            </label>
-            <label className="create__item">
-              <p className="create__name">Цена</p>
-              <input min="1" value={price} onChange={(e) => setPrice(Number(e.target.value))} className="create__input" type="number" />
-            </label>
-            <label className="create__item">
-              <p className="create__name">Категория</p>
-              <div ref={categoryRef} className="product-content__filter">
-                <button onClick={(e) => e.preventDefault()} className="product-content__filter-btn">
-                  <span onClick={() => setOpenCategory(!openCategory)}>{typeList[category].name}</span>
-                </button>
-                {openCategory && (
-                  <div className="popup-filter">
-                    <ul className="popup-filter__list">
-                      {typeList.map((item, index) => (
-                        index !== 0 && <li
-                          className={
-                            'popup-filter__item' + (index === Number(category) ? ' popup-filter__item--active' : '')
-                          }
-                          onClick={() => handleChangeCategory(item, index)}
-                          key={item.name}>
-                          {item.name}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </label>
-            <label className="create__item">
-              <p className="create__name">Рейтинг</p>
-              <div ref={ratingRef} className="product-content__filter">
-                <button onClick={(e) => e.preventDefault()} className="product-content__filter-btn">
-                  <span onClick={() => setOpenRating(!openRating)}>{rating}</span>
-                </button>
-                {openRating && (
-                  <div className="popup-filter">
-                    <ul className="popup-filter__list">
-                      {ratingList.map((item) => (
-                        <li
-                          className={
-                            'popup-filter__item' + (item.name === rating ? ' popup-filter__item--active' : '')
-                          }
-                          onClick={() => handleChangeRating(item)}
-                          key={item.name}>
-                          {item.name}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </label>
-            <label className="create__item">
-              <p className="create__name">Описание</p>
-              <textarea value={text} onChange={(e) => setText(e.target.value)} className="create__input create__textarea"></textarea>
-            </label>
-            <button className="btn create__btn" type='submit'>{isEditable ? 'Сохранить' : 'Создать'}</button>
-          </form>
+    <>
+      <ErrorPopup text={'Не удалось сохранить товар'} open={open} setOpen={setOpen} />
+      <section className="create">
+        <div className="container">
+          <div className="create__inner">
+            <form onSubmit={handleSubmit} className="create__form">
+              <label className="create__item">
+                <p className="create__name">Изображение</p>
+                <button onClick={() => inputFileRef?.current?.click()} className="create__button btn" type='button'>Загрузить изображение</button>
+                {imageUrl && <>
+                <button onClick={handleRemoveFile} className="create__button btn-noactive" type='button'>Удалить изображение</button>
+                <img className='create__img' src={imageUrl} alt="" />
+                </>}
+                <input ref={inputFileRef} onChange={handleChangeFile} type="file" hidden/>
+              </label>
+              <label className="create__item">
+                <p className="create__name">Название товара</p>
+                <input value={title} onChange={(e) => setTitle(e.target.value)} className="create__input" type="text" />
+              </label>
+              <label className="create__item">
+                <p className="create__name">Цена</p>
+                <input min="1" value={price} onChange={(e) => setPrice(Number(e.target.value))} className="create__input" type="number" />
+              </label>
+              <label className="create__item">
+                <p className="create__name">Категория</p>
+                <div ref={categoryRef} className="product-content__filter">
+                  <button onClick={(e) => e.preventDefault()} className="product-content__filter-btn">
+                    <span onClick={() => setOpenCategory(!openCategory)}>{typeList[category].name}</span>
+                  </button>
+                  {openCategory && (
+                    <div className="popup-filter">
+                      <ul className="popup-filter__list">
+                        {typeList.map((item, index) => (
+                          index !== 0 && <li
+                            className={
+                              'popup-filter__item' + (index === Number(category) ? ' popup-filter__item--active' : '')
+                            }
+                            onClick={() => handleChangeCategory(item, index)}
+                            key={item.name}>
+                            {item.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </label>
+              <label className="create__item">
+                <p className="create__name">Рейтинг</p>
+                <div ref={ratingRef} className="product-content__filter">
+                  <button onClick={(e) => e.preventDefault()} className="product-content__filter-btn">
+                    <span onClick={() => setOpenRating(!openRating)}>{rating}</span>
+                  </button>
+                  {openRating && (
+                    <div className="popup-filter">
+                      <ul className="popup-filter__list">
+                        {ratingList.map((item) => (
+                          <li
+                            className={
+                              'popup-filter__item' + (item.name === rating ? ' popup-filter__item--active' : '')
+                            }
+                            onClick={() => handleChangeRating(item)}
+                            key={item.name}>
+                            {item.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </label>
+              <label className="create__item">
+                <p className="create__name">Описание</p>
+                <textarea value={text} onChange={(e) => setText(e.target.value)} className="create__input create__textarea"></textarea>
+              </label>
+              <button className="btn create__btn" type='submit'>{isEditable ? 'Сохранить' : 'Создать'}</button>
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

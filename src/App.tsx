@@ -16,6 +16,7 @@ const Admin = loadable(() => import(/* webpackChunkName: "Admin" */'./pages/Admi
 const Login = loadable(() => import(/* webpackChunkName: "Login" */'./pages/Login'));
 const Register = loadable(() => import(/* webpackChunkName: "Register" */'./pages/Register'));
 const CreateGood = loadable(() => import(/* webpackChunkName: "CreateGood" */'./pages/CreateGood'));
+const Pay = loadable(() => import(/* webpackChunkName: "CreateGood" */'./pages/Pay'));
 
 function App() {
   const dispatch = useAppDispatch();
@@ -36,6 +37,7 @@ function App() {
         <Route path="cart" element={<Cart />} />
         <Route path="admin" element={<Admin />} />
         <Route path="create" element={<CreateGood />} />
+        <Route path="pay" element={<Pay />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

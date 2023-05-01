@@ -27,7 +27,7 @@ const Home: FC = () => {
   const sortFilter = sort.sortProperty;
   const searchValue = search ? `search=${search}` : '';
 
-  const pageSize = 4;
+  const pageSize = 10;
   const startIndex = (activePage - 1) * pageSize;
   const NumberOfPages = Math.ceil(items.length / pageSize);
   const sliceItems = items.slice(startIndex, pageSize * activePage);

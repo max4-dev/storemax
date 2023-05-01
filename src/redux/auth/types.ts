@@ -1,7 +1,16 @@
 import { Status } from '../goods/types';
 
+export interface User {
+  _id: string,
+  fullName: string,
+  email: string,
+  admin: boolean,
+  createdAt: string,
+  updatedAt: string,
+}
+
 export interface AuthSliceState {
-  data: any,
+  data: User | null,
   status: Status,
 }
 
