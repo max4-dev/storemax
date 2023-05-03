@@ -8,12 +8,13 @@ import { fetchGoods } from '../redux/goods/asyncActions';
 import { FiltersProps } from '../redux/filter/types';
 import { setFilter, setFilters, setActivePage } from '../redux/filter/slice';
 import { Status } from '../redux/goods/types';
-
+import { typeList } from '../components/Aside';
 import { sortList } from '../components/Filter';
 import {Filter, ProductItem, Skeleton, Pagination} from '../components';
 import AdminAside from '../components/AdminAside';
 import { selectIsAuth } from '../redux/auth/slice';
 import { fetchAuthMe } from '../redux/auth/asyncActions';
+import { setTitle } from '../redux/filter/slice';
 
 const Home: FC = () => {
   const navigate = useNavigate();
@@ -67,6 +68,10 @@ const Home: FC = () => {
   };
 
   useEffect(() => {
+    dispatch(setFilter(0))
+    dispatch(setActivePage(1))
+    dispatch(setTitle(typeList[0].name))
+
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1)) as unknown as FiltersProps;
 

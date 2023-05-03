@@ -9,6 +9,7 @@ import searchIcon from '../assets/images/icons/search.svg';
 import deleteIcon from '../assets/images/icons/close-black.svg';
 import { RootState, useAppDispatch } from '../redux/store';
 import { setActivePage, setFilter, setSearch, setTitle } from '../redux/filter/slice';
+import { typeList } from './Aside';
 
 const Search: FC = () => {
   const dispatch = useAppDispatch();
@@ -30,7 +31,7 @@ const Search: FC = () => {
     updateSearchValue(event.target.value);
 
     dispatch(setFilter(0));
-    dispatch(setTitle('Все товары'));
+    dispatch(setTitle(typeList[0].name));
     dispatch(setActivePage(1));
   };
 

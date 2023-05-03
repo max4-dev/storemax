@@ -27,7 +27,7 @@ const Home: FC = () => {
   const sortFilter = sort.sortProperty;
   const searchValue = search ? `search=${search}` : '';
 
-  const pageSize = 10;
+  const pageSize = 9;
   const startIndex = (activePage - 1) * pageSize;
   const NumberOfPages = Math.ceil(items.length / pageSize);
   const sliceItems = items.slice(startIndex, pageSize * activePage);
@@ -125,7 +125,7 @@ const Home: FC = () => {
             <Filter />
             {status === Status.SUCCESS && !sliceItems.length && search ? <div className="cart cart--empty">
               <div className="cart__inner">
-                <h2 className="title">Произошла ошибка😕</h2>
+                <h2 className="title">Нет результатов😕</h2>
                 <p className="cart__text">
                   К сожалению, по запросу "{search.substring(0, 15) + (search.length > 15 ? '...' : '')}" ничего не найдено.
                 </p>

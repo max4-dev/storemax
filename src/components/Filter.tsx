@@ -9,7 +9,7 @@ import { RootState, useAppDispatch } from '../redux/store';
 export const sortList = [
   { name: 'Цена', sortProperty: SortPropertyEnum.PRICE },
   { name: 'Название', sortProperty: SortPropertyEnum.TITLE },
-  { name: 'Популярность', sortProperty: SortPropertyEnum.RATING },
+  { name: 'Рейтинг', sortProperty: SortPropertyEnum.RATING },
 ];
 
 export type ClickOutside = MouseEvent & {

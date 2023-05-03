@@ -162,9 +162,18 @@
     overflow: hidden;
     color: var(--text-color);
   }
-  &-content__item:hover{
-    .product-content__btn{
-      transform: translateY(0);
+  @media (hover: hover) {
+    &-content__item:hover{
+      .product-content__btn{
+        transform: translateY(0);
+      }
+    }
+  }
+  @media (hover: none) {
+    &-content__item {
+      .product-content__btn {
+        transform: translateY(0);
+      }
     }
   }
   &-content__btn{
