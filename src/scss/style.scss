@@ -306,6 +306,12 @@
       max-width: 250px;
     }
   }
+  &__btn-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 35px;
+  }
 }
 
 .popup-filter{
@@ -848,11 +854,13 @@
     margin-top: 15px;
   }
   &__name{
-    margin-bottom: 3px;
+    margin-bottom: 15px;
+    padding-bottom: 0;
     font-size: 19px;
   }
   &__input{
     width: 100%;
+    max-width: 800px;
     background-color: var(--bg-color);
     border: 1px solid #B3BCC5;
     border-radius: 10px;

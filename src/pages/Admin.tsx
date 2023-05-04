@@ -1,4 +1,4 @@
-import { useEffect, useRef, FC } from 'react';
+import { useEffect, useRef, FC, useState } from 'react';
 import qs from 'qs';
 
 import { useSelector } from 'react-redux';
@@ -10,11 +10,12 @@ import { setFilter, setFilters, setActivePage } from '../redux/filter/slice';
 import { Status } from '../redux/goods/types';
 import { typeList } from '../components/Aside';
 import { sortList } from '../components/Filter';
-import {Filter, ProductItem, Skeleton, Pagination} from '../components';
+import {Filter, ProductItem} from '../components';
 import AdminAside from '../components/AdminAside';
 import { selectIsAuth } from '../redux/auth/slice';
 import { fetchAuthMe } from '../redux/auth/asyncActions';
 import { setTitle } from '../redux/filter/slice';
+import AdminSkeleton from '../components/AdminSkelton';
 
 const Home: FC = () => {
   const navigate = useNavigate();
@@ -44,6 +45,11 @@ const Home: FC = () => {
   const category = type > 0 ? `category=${type}` : '';
   const sortFilter = sort.sortProperty;
   const searchValue = search ? `search=${search}` : '';
+
+  const [pageSize, setPageSize] = useState(8);
+  const startIndex = (activePage - 1) * pageSize;
+  const NumberOfPages = Math.ceil(items.length / pageSize);
+  const sliceItems = items.slice(startIndex, pageSize * activePage);
   
   const order = useSelector((state: RootState) => state.filter.order);
 
@@ -94,7 +100,7 @@ const Home: FC = () => {
     getGoods();
 
     isSearch.current = false;
-  }, [sortFilter, type, search, activePage, order]);
+  }, [sortFilter, type, search, activePage, order, pageSize]);
 
   useEffect(() => {
     if (isMounted.current) {
@@ -107,6 +113,10 @@ const Home: FC = () => {
     }
     isMounted.current = true;
   }, [sortFilter, type, search, activePage]);
+
+  const handleLoadMore = () => {
+    
+  }
 
   if (status === Status.ERROR) {
     return (
@@ -140,11 +150,14 @@ const Home: FC = () => {
               {status === Status.LOADING
                 ? [...new Array(6)].map((_, index) => (
                     <div className="product-content__item-wrapper" key={index}>
-                      <Skeleton />
+                      <AdminSkeleton />
                     </div>
                   ))
-                : items.map((product: {title: string, imageUrl: string, _id: string, price: number, category: number}) => <ProductItem {...product} key={product._id} admin={true} />)}
+                : sliceItems.map((product: {title: string, imageUrl: string, _id: string, price: number, category: number}) => <ProductItem {...product} key={product._id} admin={true} />)}
             </div>
+            {items.length > pageSize && <div className="product__btn-box">
+              <button onClick={() => setPageSize((prevState) => prevState + 8)} className="btn product__btn">Загрузить еще</button>
+            </div>}
           </div>
         </div>
       </div>

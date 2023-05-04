@@ -142,7 +142,7 @@ const CreateGood: FC = () => {
           <div className="create__inner">
             <form onSubmit={handleSubmit} className="create__form">
               <label className="create__item">
-                <p className="create__name">Изображение</p>
+                <p className="create__name title">Изображение</p>
                 <button onClick={() => inputFileRef?.current?.click()} className="create__button btn" type='button'>Загрузить изображение</button>
                 {imageUrl && <>
                 <button onClick={handleRemoveFile} className="create__button btn-noactive" type='button'>Удалить изображение</button>
@@ -151,15 +151,15 @@ const CreateGood: FC = () => {
                 <input ref={inputFileRef} onChange={handleChangeFile} type="file" hidden/>
               </label>
               <label className="create__item">
-                <p className="create__name">Название товара</p>
+                <p className="create__name title">Название товара</p>
                 <input value={title} onChange={(e) => setTitle(e.target.value)} className="create__input" type="text" />
               </label>
               <label className="create__item">
-                <p className="create__name">Цена</p>
+                <p className="create__name title">Цена</p>
                 <input min="1" value={price} onChange={(e) => setPrice(Number(e.target.value))} className="create__input" type="number" />
               </label>
               <label className="create__item">
-                <p className="create__name">Категория</p>
+                <p className="create__name title">Категория</p>
                 <div ref={categoryRef} className="product-content__filter">
                   <button onClick={(e) => e.preventDefault()} className="product-content__filter-btn">
                     <span onClick={() => setOpenCategory(!openCategory)}>{typeList[category].name}</span>
@@ -183,7 +183,7 @@ const CreateGood: FC = () => {
                 </div>
               </label>
               <label className="create__item">
-                <p className="create__name">Рейтинг</p>
+                <p className="create__name title">Рейтинг</p>
                 <div ref={ratingRef} className="product-content__filter">
                   <button onClick={(e) => e.preventDefault()} className="product-content__filter-btn">
                     <span onClick={() => setOpenRating(!openRating)}>{rating}</span>
@@ -207,7 +207,7 @@ const CreateGood: FC = () => {
                 </div>
               </label>
               <label className="create__item">
-                <p className="create__name">Описание</p>
+                <p className="create__name title">Описание</p>
                 <textarea value={text} onChange={(e) => setText(e.target.value)} className="create__input create__textarea"></textarea>
               </label>
               <button className="btn create__btn" type='submit'>{isEditable ? 'Сохранить' : 'Создать'}</button>

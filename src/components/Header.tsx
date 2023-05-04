@@ -93,7 +93,7 @@ const Header: FC = () => {
                   {data?.fullName}
                 </h6>
                 <p className="user__email">
-                  {data?.email.substring(0, 15) + (data?.email?.length ?? 0 > 15 ? '...' : '')}
+                  {data?.email.substring(0, 15) + (Number(data?.email?.length) > 15 ? '...' : '')}
                 </p>
               </div>
               <div className="popup-filter">
